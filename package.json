@@ -1,0 +1,18 @@
+{
+  "name": "react-webaudio-wrapper",
+  "version": "1.0.0",
+  "description": "An intuitive, low-level React wrapper for the Web Audio API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "webaudioapi",
+    "html5",
+    "react",
+    "redux",
+    "audio"
+  ],
+  "author": "NPM bsaphier",
+  "license": "ISC"
+}
