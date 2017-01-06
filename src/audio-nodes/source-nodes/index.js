@@ -1,2 +1,2 @@
-'use strict';
+import { connect }
 export default {};

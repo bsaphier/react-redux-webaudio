@@ -1,12 +1,11 @@
-'use strict';
-import inputNodes from './input-nodes';
-import outputNodes from './output-nodes';
-import processorNodes from './processor-nodes';
+import sourceNodes from './source-nodes';
+import destinationNode from './Destination';
+import effectNodes from './effect-nodes';
 
 const audioNodes = {
-  ...inputNodes,
-  ...outputNodes,
-  ...processorNodes
+  ...sourceNodes,
+  destinationNode,
+  ...effectNodes
 };
 
 export default audioNodes;
