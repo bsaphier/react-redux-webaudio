@@ -1,7 +1,7 @@
 import audioNodes from './audio-nodes';
-import WebAudioWrapperComponent from './WebAudioWrapper';
+import WebAudioContextWrapper from './WebAudioContextWrapper';
 
 module.exports = {
-  WebAudioWrapperComponent,
+  WebAudioContextWrapper,
   ...audioNodes
 };

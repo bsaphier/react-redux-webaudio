@@ -1,0 +1,247 @@
+##### Key {
+ + @ Promise
+ + ! read-only
+##### }
+
+___
+___
+
+## BaseAudioContext
++ Attributes
+    + ! state
+    + ! listener
+    + ! sampleRate
+    + ! baseLatency
+    + ! currentTime
+    + ! destination
+    + onstatechange
+
+
++  Methods
+    + @ resume
+    + createGain
+    + createDelay
+    + createPanner
+    + createBuffer
+    + createAnalyser
+    + createConvolver
+    + createIIRFilter
+    + createOscillator
+    + createWaveShaper
+    + @ decodeAudioData
+    + createBiquadFilter
+    + createBufferSource
+    + createPeriodicWave
+    + createStereoPanner
+    + createChannelMerger
+    + createConstantSource
+    + createScriptProcessor
+    + createChannelSplitter
+    + createDynamicsCompressor
+
+
+## AudioScheduledSourceNode
+>   instantiated by creating a specific type of AudioNode (i.e. OscillatorNode, etc.)
+
++ Attributes
+    + onended
+
+
++ Methods
+    + start
+    + stop
+
+
+## AudioBuffer
+> for working with memory-resident audio assets
+
+> can be used by more than one AudioContext
+
+___
+
+## AudioContext - extends BaseAudioContext
+>   contains audio signal graph representing connections between AudioNodes
+
++  Attributes
+    + ! outputLatency
+
+
++  Methods
+    + @ close
+    + @ suspend
+    + getOutputTimestamp
+    + createMediaStreamSource
+    + createMediaElementSource
+    + createMediaStreamTrackSource
+    + createMediaStreamDestination
+
+
+>###    AudioParam
+> > for controlling individual aspects of an AudioNode
+>
+>
+  +   Attributes
+        + value
+        + ! maxValue
+        + ! minValue
+        + ! defaultValue
+>
+>
+  +   Methods
+        + setValueAtTime
+        + setTargetAtTime
+        + setValueCurveAtTime
+        + cancelAndHoldAtTime
+        + cancelScheduledValues
+        + linearRampToValueAtTime
+        + exponentialRampToValueAtTime
+
+
+>###    AudioNode
+> > represents audio sources, audio outputs, and intermediate processing modules
+>
+>
+  +   Attributes
+        + ! context
+        + channelCount
+        + channelCountMode
+        + ! numberOfInputs
+        + ! numberOfOutputs
+        + channelInterpretation
+>
+>
+  +   Methods
+        + connect
+        + disconnect
+
+
+>> ####  AnalyzerNode
+> > >   only outputs data for visualizations
+>>
+>>
+  +   Attributes
+        + fftSize
+        + maxDecibels
+        + minDecibels
+        + ! frequencyBinCount
+        + smoothingTimeConstant
+>>
+>>
+  +   Methods
+        + getByteFrequencyData
+        + getByteTimeDomainData
+        + getFloatFrequencyData
+        + getFloatTimeDomainData
+
+
+
+>> ####  AudioBufferSourceNode - extends AudioScheduledSourceNode
+> > >   generates audio from an AudioBuffer
+>>
+>>
+>> ####  AudioDestinationNode
+> > >   subclass of AudioNode
+
+> > >   final destination for all rendered audio
+>>
+>>
+  +   Attributes
+        + maxChannelCount
+
+
+>> ####  BiquadFilterNode
+> > >   LP, HP, BP, lShelf, hShelf, peak, Notch, Allpass
+
+
+>> ####  ChannelMergerNode
+> > >   combines channels from multiple streams to single stream
+
+
+>> ####  ChannelSplitterNode
+> > >   outputs individual channels of an audio stream in the routing graph
+
+
+>> ####  ConstantSourceNode - extends AudioScheduledSourceNode
+> > >
+
+
+>> ####  ConvolverNode
+> > >   applies real-time linear effects (i.e. conv reverb)
+
+
+>> ####  DelayNode
+> > >   appliesdynamically adjustable variable delay
+
+
+>> ####  DynamicsCompressorNode
+> > >   audio-dynamics compression
+
+
+>> ####  GainNode
+> > >   explicit gain control
+
+
+>> ####  IIRFilterNode
+> > >   a general infinite impulse response filter
+
+
+>> ####  MediaElementAudioSourceNode
+> > >   audio source from a media element
+
+
+>> ####  MediaStreamAudioSourceNode
+> > >   audio source from a MediaStream (i.e. live audio input or remote peer)
+
+
+>> ####  MediaStreamTrackAudioSourceNode
+> > >   audio source from a MediaStreamTrack
+
+
+>> ####  MediaStreamAudioDestinationNode
+> > >   audio destination to a MediaStream sent to a remote peer
+
+
+>> ####  PannerNode
+> > >   spatialize / position audio in 3D space
+
+>>> ######  AudioListener
+>>>>
+
+
+>> ####  OscillatorNode - extends AudioScheduledSourceNode
+> > >   generates a periodic waveform
+>>
+>>
+  +   Attributes
+        + type
+        + ! detune
+        + ! frequency
+>>
+>>
+  +   Methods
+        + setPeriodicWave
+
+>>> ######  PeriodicWave
+>>>>    specifies custom periodic waveforms for use by the Oscillator Node
+
+
+>> ####  StereoPannerNode
+> > >   equal-power positioning of audio input in a stereo stream
+
+
+>> ####  WaveShaperNode
+> > >   applies a non-linear waveshaping effect
+
+
+>###    AudioWorklet
+> >
+
+>> ####  AudioWorkletNode
+> > >   type of AudioNode
+
+
+>> ####  AudioWorkletGlobalScope
+> > >
+
+>>> ######  AudioWorkletProcessor
+>>>>

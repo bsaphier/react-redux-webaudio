@@ -1,8 +1,9 @@
+import { connect } from 'react-redux';
 import React, { Component } from 'react';
 
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 
-class WebAudioWrapperComponent extends Component {
+class WebAudioContextWrapper extends Component {
   componentWillMount() {
     if (this.props.audioContext) {
       return null;
@@ -33,4 +34,4 @@ class WebAudioWrapperComponent extends Component {
   }
 }
 
-export default WebAudioWrapperComponent;
+export default connect()( WebAudioContextWrapper );
