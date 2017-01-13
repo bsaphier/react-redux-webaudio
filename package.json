@@ -1,7 +1,7 @@
 {
-  "name": "react-webaudio-wrapper",
-  "version": "1.0.0",
-  "description": "An intuitive, low-level React wrapper for the Web Audio API",
+  "name": "react-redux-audio",
+  "version": "0.0.1",
+  "description": "The Web Audio API, thinly wrapped for easy integration with React-Redux",
   "main": "index.js",
   "scripts": {
     "build": "rm -rf lib && babel --presets es2015,stage-2,react src -d lib",
@@ -14,7 +14,7 @@
     "redux",
     "audio"
   ],
-  "author": "NPM bsaphier",
+  "author": "bsaphier",
   "license": "ISC",
   "devDependencies": {
     "babel-cli": "^6.18.0",

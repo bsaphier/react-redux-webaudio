@@ -1,6 +1,6 @@
-# react-webaudio-wrapper
+# react-redux-audio
 
-An intuitive, low-level React wrapper for the [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API).
+The [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API), thinly wrapped for easy integration with React-Redux.
 
 
 ## A List
