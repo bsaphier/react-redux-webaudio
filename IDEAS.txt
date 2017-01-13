@@ -1,8 +1,113 @@
+# IDEAS
+
+assuming I name this package 'react-redux-audio',
+the idea would be to use this package like this:
+
+```javascript
+import {
+  close,
+  resume,
+  suspend,
+  connect,
+  createGain,
+  createOscillator,
+  createAudioContext,
+  audioContextProvider
+} from 'react-redux-audio';
+// your other imports here ...
+
+
+
+/*-~-~-~-~-~-~-~-~-~-~-~-~-~- YOUR REDUX-STORE -~-~-~-~-~-~-~-~-~-~-~-~-~-*/
+const rootReducer = combineReducers({
+  //  your reducers ...
+  audioContextProvider
+});
+const store = createStore( rootReducer );
+
+
+
+/*-~-~-~-~-~-~-~-~-~-~-~-~-~-~ YOUR REDUCER ~-~-~-~-~-~-~-~-~-~-~-~-~-~-*/
+const yourReducer = (state = initialState, action) =>
+{
+  const nextState = Object.assign({}, state);
+  switch (action.type) {
+    case 'CREATE_AUDIO_CONTEXT':
+      nextState.audioContext = createAudioContext(action.audioContextProvider);
+      return nextState;
+
+    case 'CREATE_OSC':
+      nextState.oscillator1 = createOscillator('oscillator1', nextState.audioContext);
+      return nextState;
+
+    case 'CREATE_GAIN':
+      nextState.gain1 = createGain('gain1', nextState.audioContext);
+      return nextState;
+
+    case 'CREATE_MY_INSTRUMENT':
+      const destination = nextState.audioContext.destination;
+      const oscillator = nextState.oscillator1;
+      const gainNode = nextState.gain1;
+      connect(oscillator, gainNode);
+      connect(gainNode, destination);
+      oscillator.type = 'square';
+      oscillator.frequency.value = 100;
+      oscillator.start(0);
+      gainNode.gain.value = 0.1;
+      return nextState
+
+    default:
+      return nextState;
+  }
+};
+
+
+/*-~-~-~-~-~-~-~-~-~-~-~-~-~- YOUR CONTAINER -~-~-~-~-~-~-~-~-~-~-~-~-~-*/
+  const mapStateToProps = (store) => (store);
+  const mapDispatchToProps = (dispatch, { audioContextAndGraph }) =>
+  {
+    const audioContext = audioContextAndGraph.context;
+    return {
+      createAnAudioContext: () =>
+      {
+        dispatch(initiate())
+      },
+      yourDispatchAction: () =>
+      {
+        switch (audioContext.state) {
+          case 'running':
+            dispatch(yourAction());
+            break;
+          case 'suspended':
+            dispatch(yourOtherAction());
+            break;
+          default:
+            console.log('something is not working');
+        }
+      }
+    };
+  };
+
+
+const App = connect(mapStateToProps, mapDispatchToProps)(YourDumbComponent);
+
+ReactDOM.render(
+  <Provider store={ store }>
+    <App audioContextProvider={ audioContextProvider }/>
+  </Provider>,
+  document.getElementById('app')
+);
+
+```
+
+
+___
+___
+
 ##### Key {
  + @ Promise
  + ! read-only
 ##### }
-
 ___
 ___
 

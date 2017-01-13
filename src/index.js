@@ -1,7 +1,7 @@
-import audioNodes from './audio-nodes';
-import WebAudioContextWrapper from './WebAudioContextWrapper';
+import * as audioActions from './audio-actions';
+import audioContextProvider from './audioContextProvider';
 
 module.exports = {
-  WebAudioContextWrapper,
-  ...audioNodes
+  audioActions,
+  audioContextProvider
 };
