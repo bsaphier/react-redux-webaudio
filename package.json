@@ -1,6 +1,6 @@
 {
   "name": "react-redux-webaudio",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "The Web Audio API, thinly wrapped for easy integration with React-Redux",
   "main": "index.js",
   "scripts": {
