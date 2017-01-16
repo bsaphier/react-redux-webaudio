@@ -1,5 +1,113 @@
-export default
-(audioContextProvider = window.AudioContext || window.webkitAudioContext) =>
-{
-  return audioContextProvider;
+/*eslint-disable complexity */
+import set from 'lodash.set';
+
+
+const audioProvider = {
+  audioContext: window.AudioContext || window.webkitAudioContext,
+  audioContextAndGraph: {
+    context: null,
+    audioNodes: {}
+  }
 };
+
+
+const audioContextProvider = (contextProvider = audioProvider, action) => {
+
+  let connectThisNode, toThatNode;
+
+  const nextProviderState = Object.assign({}, contextProvider);
+
+  const createAudioContext = AudioCtx => new AudioCtx();
+
+
+  switch (action.type) {
+    case 'CREATE_AUDIO_CONTEXT':
+      nextProviderState
+        .audioContextAndGraph
+        .context = createAudioContext(
+          nextProviderState.audioContext
+        );
+      return nextProviderState;
+
+
+    case 'SUSPEND_AUDIO_CONTEXT':
+      nextProviderState
+        .audioContextAndGraph
+        .context.suspend();
+      return nextProviderState;
+
+
+    case 'RESUME_AUDIO_CONTEXT':
+      nextProviderState
+        .audioContextAndGraph
+        .context.resume();
+      return nextProviderState;
+
+
+    case 'CLOSE_AUDIO_CONTEXT':
+      nextProviderState
+        .audioContextAndGraph
+        .context.close();
+      return nextProviderState;
+
+
+    case 'CONNECT':
+      toThatNode = nextProviderState
+                    .audioContextAndGraph
+                    .audioNodes[action.toThatNode]
+                 ||
+                   nextProviderState
+                    .audioContextAndGraph
+                    .context
+                    .destination;
+
+      connectThisNode = nextProviderState
+                        .audioContextAndGraph
+                        .audioNodes[action.connectThisNode];
+
+      connectThisNode.connect(toThatNode);
+      return nextProviderState;
+
+
+    case 'CREATE_GAIN':
+      nextProviderState
+        .audioContextAndGraph
+        .audioNodes[action.name] = nextProviderState
+                                    .audioContextAndGraph
+                                    .context
+                                    .createGain();
+      return nextProviderState;
+
+
+    case 'CREATE_OSCILLATOR':
+      nextProviderState
+        .audioContextAndGraph
+        .audioNodes[action.name] = nextProviderState
+                                    .audioContextAndGraph
+                                    .context
+                                    .createOscillator();
+      return nextProviderState;
+
+
+    case 'START_OSCILLATOR_NODE':
+      nextProviderState
+        .audioContextAndGraph
+        .audioNodes[action.name].start(action.time);
+      return nextProviderState;
+
+
+    case 'SET_PARAM':
+      set(
+        nextProviderState.audioContextAndGraph.audioNodes,
+        action.param,
+        action.value
+      );
+      return nextProviderState;
+
+
+    default:
+      return nextProviderState;
+  }
+};
+
+export default audioContextProvider;
