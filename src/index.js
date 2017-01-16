@@ -1,7 +1,7 @@
-import * as audioActions from './audio-actions/action-creators';
+import * as audioActionCreators from './audio-actions/action-creators';
 import audioContextProvider from './audioContextProvider';
 
 module.exports = {
-  audioActions,
+  audioActionCreators,
   audioContextProvider
 };
