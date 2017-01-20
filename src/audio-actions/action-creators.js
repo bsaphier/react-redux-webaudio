@@ -52,6 +52,12 @@ export const connectAudioNodes = (connectThisNode, toThatNode) => ({
   toThatNode
 });
 
+export const connectNodeToParam = (connectThisNode, toThisParam) => ({
+  type: 'CONNECT_TO_PARAM',
+  connectThisNode,
+  toThisParam
+});
+
 export const setParam = (param, value) => ({
   type: 'SET_PARAM',
   param,

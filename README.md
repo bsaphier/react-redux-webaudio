@@ -72,6 +72,10 @@ createOscillator('theNameOfYourNewOscillatornNode');
 ```javascript
 connectAudioNodes('connectThisNode', 'toThisNode');
 ```
+* connectNodeToParam
+```javascript
+connectNodeToParam('connectThisNode', 'to.This.Param');
+```
 * setValueAtTime
 ```javascript
 setValueAtTime('parameterToSetValueOf', Number('valueToGoTo'), Number('timeToSetValueAt'));

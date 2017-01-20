@@ -69,6 +69,14 @@ const audioContextProvider = (contextProvider = audioProvider, action) => {
       connectThisNode.connect(toThatNode);
       return nextProviderState;
 
+    case 'CONNECT_TO_PARAM':
+      connectThisNode = nextProviderState
+                        .audioContextAndGraph
+                        .audioNodes[action.connectThisNode];
+
+      connectThisNode.connect(action.toThisParam);
+      return nextProviderState;
+
 
     case 'CREATE_BIQUAD_FILTER':
       nextProviderState
