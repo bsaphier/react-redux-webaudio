@@ -17,6 +17,11 @@ export const createGain = (name) => ({
   name
 });
 
+export const createBiquadFilter = (name) => ({
+  type: 'CREATE_BIQUAD_FILTER',
+  name
+});
+
 
 /*-~-~-~-~-~-~-~-~-~-~-~- AudioContext Methods -~-~-~-~-~-~-~-~-~-~-~-*/
 export const suspendAudioContext = () => ({
@@ -51,4 +56,18 @@ export const setParam = (param, value) => ({
   type: 'SET_PARAM',
   param,
   value
+});
+
+export const setValueAtTime = (param, value, startTime) => ({
+  type: 'SET_VALUE_AT_TIME',
+  param,
+  value,
+  startTime
+});
+
+export const linearRampToValueAtTime = (param, value, endTime) => ({
+  type: 'LINEAR_RAMP_TO_VALUE_AT_TIME',
+  param,
+  value,
+  endTime
 });

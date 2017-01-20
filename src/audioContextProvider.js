@@ -1,5 +1,6 @@
 /*eslint-disable complexity */
 import set from 'lodash.set';
+import invoke from 'lodash.invoke';
 
 
 const audioProvider = {
@@ -69,6 +70,16 @@ const audioContextProvider = (contextProvider = audioProvider, action) => {
       return nextProviderState;
 
 
+    case 'CREATE_BIQUAD_FILTER':
+      nextProviderState
+        .audioContextAndGraph
+        .audioNodes[action.name] = nextProviderState
+                                    .audioContextAndGraph
+                                    .context
+                                    .createBiquadFilter();
+      return nextProviderState;
+
+
     case 'CREATE_GAIN':
       nextProviderState
         .audioContextAndGraph
@@ -101,6 +112,26 @@ const audioContextProvider = (contextProvider = audioProvider, action) => {
         nextProviderState.audioContextAndGraph.audioNodes,
         action.param,
         action.value
+      );
+      return nextProviderState;
+
+
+    case 'SET_VALUE_AT_TIME':
+      invoke(
+        nextProviderState.audioContextAndGraph.audioNodes,
+        `${action.param}.setValueAtTime`,
+        action.value,
+        action.startTime
+      );
+      return nextProviderState;
+
+
+    case 'LINEAR_RAMP_TO_VALUE_AT_TIME':
+      invoke(
+        nextProviderState.audioContextAndGraph.audioNodes,
+        `${action.param}.linearRampToValueAtTime`,
+        action.value,
+        action.endTime
       );
       return nextProviderState;
 

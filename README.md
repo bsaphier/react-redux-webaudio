@@ -27,8 +27,8 @@ const store = createStore( rootReducer );
 const App = connect(
   store => store,
   dispatch => ({
-    // you MUST do something like this before using any other actions!!
     createGlobalAudioContext: () =>
+      // you MUST do something like this before using any other actions!!
       dispatch(audioActionCreators.createGlobalAudioContext()),
     yourNoiseyAction: () => {
       // create some audio nodes
@@ -59,6 +59,10 @@ setParam('any.audio.node.param', 'theValueYouWantItToBe');
 ```javascript
 createGain('theNameOfYourNewGainNode');
 ```
+* createBiquadFilter
+```javascript
+createBiquadFilter('theNameOfYourNewFilterNode');
+```
 * oscillatorStart
 * createOscillator
 ```javascript
@@ -67,6 +71,14 @@ createOscillator('theNameOfYourNewOscillatornNode');
 * connectAudioNodes
 ```javascript
 connectAudioNodes('connectThisNode', 'toThisNode');
+```
+* setValueAtTime
+```javascript
+setValueAtTime('parameterToSetValueOf', Number('valueToGoTo'), Number('timeToSetValueAt'));
+```
+* linearRampToValueAtTime
+```javascript
+linearRampToValueAtTime('parameterToSetValueOf', Number('valueToRampTo'), Number('timeToReachEndOfRamp'));
 ```
 * closeAudioContext
 * resumeAudioContext
