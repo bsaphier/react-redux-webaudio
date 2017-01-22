@@ -69,13 +69,13 @@ const audioContextProvider = (contextProvider = audioProvider, action) => {
       connectThisNode.connect(toThatNode);
       return nextProviderState;
 
-    case 'CONNECT_TO_PARAM':
-      connectThisNode = nextProviderState
-                        .audioContextAndGraph
-                        .audioNodes[action.connectThisNode];
-
-      connectThisNode.connect(action.toThisParam);
-      return nextProviderState;
+    // case 'CONNECT_TO_PARAM':
+    //   connectThisNode = nextProviderState
+    //                     .audioContextAndGraph
+    //                     .audioNodes[action.connectThisNode];
+    //
+    //   connectThisNode.connect(action.toThisParam);
+    //   return nextProviderState;
 
 
     case 'CREATE_BIQUAD_FILTER':
@@ -84,7 +84,7 @@ const audioContextProvider = (contextProvider = audioProvider, action) => {
         .audioNodes[action.name] = nextProviderState
                                     .audioContextAndGraph
                                     .context
-                                    .createBiquadFilter();
+                                    .createBiquadFilter(action.maxDelayTime);
       return nextProviderState;
 
 
@@ -95,6 +95,16 @@ const audioContextProvider = (contextProvider = audioProvider, action) => {
                                     .audioContextAndGraph
                                     .context
                                     .createGain();
+      return nextProviderState;
+
+
+    case 'CREATE_DELAY':
+      nextProviderState
+        .audioContextAndGraph
+        .audioNodes[action.name] = nextProviderState
+                                    .audioContextAndGraph
+                                    .context
+                                    .createDelay();
       return nextProviderState;
 
 

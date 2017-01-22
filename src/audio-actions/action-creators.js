@@ -22,6 +22,12 @@ export const createBiquadFilter = (name) => ({
   name
 });
 
+export const createDelay = (name, maxDelayTime) => ({
+  type: 'CREATE_DELAY',
+  name,
+  maxDelayTime
+});
+
 
 /*-~-~-~-~-~-~-~-~-~-~-~- AudioContext Methods -~-~-~-~-~-~-~-~-~-~-~-*/
 export const suspendAudioContext = () => ({
@@ -52,11 +58,11 @@ export const connectAudioNodes = (connectThisNode, toThatNode) => ({
   toThatNode
 });
 
-export const connectNodeToParam = (connectThisNode, toThisParam) => ({
-  type: 'CONNECT_TO_PARAM',
-  connectThisNode,
-  toThisParam
-});
+// export const connectNodeToParam = (connectThisNode, toThisParam) => ({
+//   type: 'CONNECT_TO_PARAM',
+//   connectThisNode,
+//   toThisParam
+// });
 
 export const setParam = (param, value) => ({
   type: 'SET_PARAM',
