@@ -10,6 +10,11 @@ export const createOscillator = (name) => ({
   name
 });
 
+export const createBufferSource = (name) => ({
+  type: 'CREATE_BUFFER_SOURCE',
+  name
+});
+
 
 /*-~-~-~-~-~-~-~-~-~-~-~-~-~- Create Audio Nodes -~-~-~-~-~-~-~-~-~-~-~-~-~-*/
 export const createGain = (name) => ({
@@ -19,6 +24,11 @@ export const createGain = (name) => ({
 
 export const createBiquadFilter = (name) => ({
   type: 'CREATE_BIQUAD_FILTER',
+  name
+});
+
+export const createConvolver = (name) => ({
+  type: 'CREATE_CONVOLVER',
   name
 });
 
@@ -45,7 +55,7 @@ export const closeAudioContext = () => ({
 
 /*-~-~-~-~-~-~-~-~-~-~-~- Source Node Methods -~-~-~-~-~-~-~-~-~-~-~-*/
 export const oscillatorStart = (name, time) => ({
-  type: 'START_OSCILLATOR_NODE',
+  type: 'START_SOURCE_NODE',
   name,
   time
 });
@@ -82,4 +92,10 @@ export const linearRampToValueAtTime = (param, value, endTime) => ({
   param,
   value,
   endTime
+});
+
+export const decodeAudioData = (audioData, callbackFunc) => ({
+  type: 'DECODE_AUDIO_DATA',
+  audioData,
+  callbackFunc
 });

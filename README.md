@@ -63,6 +63,10 @@ createGain('theNameOfYourNewGainNode');
 ```javascript
 createDelay('theNameOfYourNewDelayNode', Number('maxDelayTime'));
 ```
+* createConvolver
+```javascript
+createConvolver('theNameOfYourNewConvolverNode');
+```
 * createBiquadFilter
 ```javascript
 createBiquadFilter('theNameOfYourNewFilterNode');
@@ -71,6 +75,10 @@ createBiquadFilter('theNameOfYourNewFilterNode');
 * createOscillator
 ```javascript
 createOscillator('theNameOfYourNewOscillatornNode');
+```
+* createBufferSource
+```javascript
+createBufferSource('theNameOfYourNewBufferSourcenNode');
 ```
 * connectAudioNodes
 ```javascript

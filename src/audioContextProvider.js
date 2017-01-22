@@ -108,6 +108,16 @@ const audioContextProvider = (contextProvider = audioProvider, action) => {
       return nextProviderState;
 
 
+    case 'CREATE_CONVOLVER':
+      nextProviderState
+        .audioContextAndGraph
+        .audioNodes[action.name] = nextProviderState
+                                    .audioContextAndGraph
+                                    .context
+                                    .createConvolver();
+      return nextProviderState;
+
+
     case 'CREATE_OSCILLATOR':
       nextProviderState
         .audioContextAndGraph
@@ -118,7 +128,24 @@ const audioContextProvider = (contextProvider = audioProvider, action) => {
       return nextProviderState;
 
 
-    case 'START_OSCILLATOR_NODE':
+    case 'CREATE_BUFFER_SOURCE':
+      nextProviderState
+        .audioContextAndGraph
+        .audioNodes[action.name] = nextProviderState
+                                    .audioContextAndGraph
+                                    .context
+                                    .createBufferSource();
+      return nextProviderState;
+
+
+    case 'DECODE_AUDIO_DATA':
+      nextProviderState.audioContextAndGraph.context
+        .decodeAudioData(action.audioData)
+        .then(action.callbackFunc);
+      return nextProviderState;
+
+
+    case 'START_SOURCE_NODE':
       nextProviderState
         .audioContextAndGraph
         .audioNodes[action.name].start(action.time);
