@@ -61,7 +61,7 @@ createGain('theNameOfYourNewGainNode');
 ```
 * createDelay
 ```javascript
-createGain('theNameOfYourNewDelayNode', Number('maxDelayTime'));
+createDelay('theNameOfYourNewDelayNode', Number('maxDelayTime'));
 ```
 * createBiquadFilter
 ```javascript
