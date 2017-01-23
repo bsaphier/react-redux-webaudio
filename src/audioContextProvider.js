@@ -104,7 +104,7 @@ const audioContextProvider = (contextProvider = audioProvider, action) => {
         .audioNodes[action.name] = nextProviderState
                                     .audioContextAndGraph
                                     .context
-                                    .createDelay();
+                                    .createDelay(action.maxDelayTime || 1.0);
       return nextProviderState;
 
 
@@ -115,6 +115,16 @@ const audioContextProvider = (contextProvider = audioProvider, action) => {
                                     .audioContextAndGraph
                                     .context
                                     .createConvolver();
+      return nextProviderState;
+
+
+    case 'CREATE_DYNAMICS_COMPRESSOR':
+      nextProviderState
+        .audioContextAndGraph
+        .audioNodes[action.name] = nextProviderState
+                                    .audioContextAndGraph
+                                    .context
+                                    .createDynamicsCompressor();
       return nextProviderState;
 
 

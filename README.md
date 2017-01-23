@@ -67,6 +67,10 @@ createDelay('theNameOfYourNewDelayNode', Number('maxDelayTime'));
 ```javascript
 createConvolver('theNameOfYourNewConvolverNode');
 ```
+* createDynamicsCompressor
+```javascript
+createDynamicsCompressor('theNameOfYourNewCompressorNode');
+```
 * createBiquadFilter
 ```javascript
 createBiquadFilter('theNameOfYourNewFilterNode');

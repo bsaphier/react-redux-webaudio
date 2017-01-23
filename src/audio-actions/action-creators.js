@@ -32,6 +32,11 @@ export const createConvolver = (name) => ({
   name
 });
 
+export const createDynamicsCompressor = (name) => ({
+  type: 'CREATE_DYNAMICS_COMPRESSOR',
+  name
+});
+
 export const createDelay = (name, maxDelayTime) => ({
   type: 'CREATE_DELAY',
   name,
