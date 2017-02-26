@@ -2,7 +2,7 @@
 
 The [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API), thinly wrapped for easy integration with React-Redux.
 
-# this package is still in progress, with very limited features... it does work though.
+# this package is still in progress, does not include any tests, and does not include the React part of the package yet...
 
 ## Installation
 ```bash
