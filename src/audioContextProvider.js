@@ -3,196 +3,215 @@ import set from 'lodash.set';
 import invoke from 'lodash.invoke';
 
 
-const audioProvider = {
+const initialState = {
   audioContext: window.AudioContext || window.webkitAudioContext,
-  audioContextAndGraph: {
+  contextAndGraph: {
     context: null,
     audioNodes: {}
   }
 };
 
 
-const audioContextProvider = (contextProvider = audioProvider, action) => {
+const audioContextProvider = (state = initialState, action) => {
 
   let connectThisNode, toThatNode;
 
-  const nextProviderState = Object.assign({}, contextProvider);
+  const nextState = Object.assign({}, state);
 
   const createAudioContext = AudioCtx => new AudioCtx();
 
 
   switch (action.type) {
-    case 'CREATE_AUDIO_CONTEXT':
-      nextProviderState
-        .audioContextAndGraph
-        .context = createAudioContext(
-          nextProviderState.audioContext
-        );
-      return nextProviderState;
+
+    // case 'CREATE_AUDIO_CONTEXT':
+    //   nextState
+    //     .contextAndGraph
+    //     .context = createAudioContext(
+    //       nextState.audioContext
+    //     );
+    //
+    //   return nextState;
 
 
     case 'SUSPEND_AUDIO_CONTEXT':
-      nextProviderState
-        .audioContextAndGraph
+      nextState
+        .contextAndGraph
         .context.suspend();
-      return nextProviderState;
+
+      return nextState;
 
 
     case 'RESUME_AUDIO_CONTEXT':
-      nextProviderState
-        .audioContextAndGraph
+      nextState
+        .contextAndGraph
         .context.resume();
-      return nextProviderState;
+
+      return nextState;
 
 
     case 'CLOSE_AUDIO_CONTEXT':
-      nextProviderState
-        .audioContextAndGraph
+      nextState
+        .contextAndGraph
         .context.close();
-      return nextProviderState;
+
+      return nextState;
 
 
     case 'CONNECT':
-      toThatNode = nextProviderState
-                    .audioContextAndGraph
+      toThatNode = nextState
+                    .contextAndGraph
                     .audioNodes[action.toThatNode]
                  ||
-                   nextProviderState
-                    .audioContextAndGraph
+                   nextState
+                    .contextAndGraph
                     .context
                     .destination;
 
-      connectThisNode = nextProviderState
-                        .audioContextAndGraph
+      connectThisNode = nextState
+                        .contextAndGraph
                         .audioNodes[action.connectThisNode];
 
       connectThisNode.connect(toThatNode);
-      return nextProviderState;
+
+      return nextState;
 
     // case 'CONNECT_TO_PARAM':
-    //   connectThisNode = nextProviderState
-    //                     .audioContextAndGraph
+    //   connectThisNode = nextState
+    //                     .contextAndGraph
     //                     .audioNodes[action.connectThisNode];
     //
     //   connectThisNode.connect(action.toThisParam);
-    //   return nextProviderState;
+    //   return nextState;
 
 
     case 'CREATE_BIQUAD_FILTER':
-      nextProviderState
-        .audioContextAndGraph
-        .audioNodes[action.name] = nextProviderState
-                                    .audioContextAndGraph
+      nextState
+        .contextAndGraph
+        .audioNodes[action.name] = nextState
+                                    .contextAndGraph
                                     .context
                                     .createBiquadFilter(action.maxDelayTime);
-      return nextProviderState;
+
+      return nextState;
 
 
     case 'CREATE_GAIN':
-      nextProviderState
-        .audioContextAndGraph
-        .audioNodes[action.name] = nextProviderState
-                                    .audioContextAndGraph
+      nextState
+        .contextAndGraph
+        .audioNodes[action.name] = nextState
+                                    .contextAndGraph
                                     .context
                                     .createGain();
-      return nextProviderState;
+
+      return nextState;
 
 
-    case 'CREATE_DELAY':
-      nextProviderState
-        .audioContextAndGraph
-        .audioNodes[action.name] = nextProviderState
-                                    .audioContextAndGraph
-                                    .context
-                                    .createDelay(action.maxDelayTime || 1.0);
-      return nextProviderState;
-
-
-    case 'CREATE_CONVOLVER':
-      nextProviderState
-        .audioContextAndGraph
-        .audioNodes[action.name] = nextProviderState
-                                    .audioContextAndGraph
-                                    .context
-                                    .createConvolver();
-      return nextProviderState;
-
-
-    case 'CREATE_DYNAMICS_COMPRESSOR':
-      nextProviderState
-        .audioContextAndGraph
-        .audioNodes[action.name] = nextProviderState
-                                    .audioContextAndGraph
-                                    .context
-                                    .createDynamicsCompressor();
-      return nextProviderState;
+    // case 'CREATE_DELAY':
+    //   nextState
+    //     .contextAndGraph
+    //     .audioNodes[action.name] = nextState
+    //                                 .contextAndGraph
+    //                                 .context
+    //                                 .createDelay(action.maxDelayTime || 1.0);
+    //
+    //   return nextState;
+    //
+    //
+    // case 'CREATE_CONVOLVER':
+    //   nextState
+    //     .contextAndGraph
+    //     .audioNodes[action.name] = nextState
+    //                                 .contextAndGraph
+    //                                 .context
+    //                                 .createConvolver();
+    //
+    //   return nextState;
+    //
+    //
+    // case 'CREATE_DYNAMICS_COMPRESSOR':
+    //   nextState
+    //     .contextAndGraph
+    //     .audioNodes[action.name] = nextState
+    //                                 .contextAndGraph
+    //                                 .context
+    //                                 .createDynamicsCompressor();
+    //
+    //   return nextState;
 
 
     case 'CREATE_OSCILLATOR':
-      nextProviderState
-        .audioContextAndGraph
-        .audioNodes[action.name] = nextProviderState
-                                    .audioContextAndGraph
+      nextState
+        .contextAndGraph
+        .audioNodes[action.name] = nextState
+                                    .contextAndGraph
                                     .context
                                     .createOscillator();
-      return nextProviderState;
+
+      return nextState;
 
 
-    case 'CREATE_BUFFER_SOURCE':
-      nextProviderState
-        .audioContextAndGraph
-        .audioNodes[action.name] = nextProviderState
-                                    .audioContextAndGraph
-                                    .context
-                                    .createBufferSource();
-      return nextProviderState;
-
-
-    case 'DECODE_AUDIO_DATA':
-      nextProviderState.audioContextAndGraph.context
-        .decodeAudioData(action.audioData)
-        .then(action.callbackFunc);
-      return nextProviderState;
+    // case 'CREATE_BUFFER_SOURCE':
+    //   nextState
+    //     .contextAndGraph
+    //     .audioNodes[action.name] = nextState
+    //                                 .contextAndGraph
+    //                                 .context
+    //                                 .createBufferSource();
+    //
+    //   return nextState;
+    //
+    //
+    // case 'DECODE_AUDIO_DATA':
+    //   nextState.contextAndGraph.context
+    //     .decodeAudioData(action.audioData)
+    //     .then(action.callbackFunc);
+    //
+    //   return nextState;
 
 
     case 'START_SOURCE_NODE':
-      nextProviderState
-        .audioContextAndGraph
+      nextState
+        .contextAndGraph
         .audioNodes[action.name].start(action.time);
-      return nextProviderState;
+
+      return nextState;
 
 
     case 'SET_PARAM':
       set(
-        nextProviderState.audioContextAndGraph.audioNodes,
+        nextState.contextAndGraph.audioNodes,
         action.param,
         action.value
       );
-      return nextProviderState;
+
+      return nextState;
 
 
-    case 'SET_VALUE_AT_TIME':
-      invoke(
-        nextProviderState.audioContextAndGraph.audioNodes,
-        `${action.param}.setValueAtTime`,
-        action.value,
-        action.startTime
-      );
-      return nextProviderState;
-
-
-    case 'LINEAR_RAMP_TO_VALUE_AT_TIME':
-      invoke(
-        nextProviderState.audioContextAndGraph.audioNodes,
-        `${action.param}.linearRampToValueAtTime`,
-        action.value,
-        action.endTime
-      );
-      return nextProviderState;
+    // case 'SET_VALUE_AT_TIME':
+    //   invoke(
+    //     nextState.contextAndGraph.audioNodes,
+    //     `${action.param}.setValueAtTime`,
+    //     action.value,
+    //     action.startTime
+    //   );
+    //
+    //   return nextState;
+    //
+    //
+    // case 'LINEAR_RAMP_TO_VALUE_AT_TIME':
+    //   invoke(
+    //     nextState.contextAndGraph.audioNodes,
+    //     `${action.param}.linearRampToValueAtTime`,
+    //     action.value,
+    //     action.endTime
+    //   );
+    //
+    //   return nextState;
 
 
     default:
-      return nextProviderState;
+      return nextState;
+
   }
 };
 

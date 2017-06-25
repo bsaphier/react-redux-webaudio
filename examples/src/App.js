@@ -1,17 +1,13 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
+import ReactReduxWebAudio from '../rrwa';
+import RRWAExamplesApp from './components';
 
-class App extends React.Component {
-  componentDidMount() {
-    console.log(this.props);
-  }
-
-  render() {
-    return (
-      <div>{'HELLOOOOOO'}</div>
-    );
-  }
-}
-
-export default connect( state => ({...state}) )( App );
+export default () => {
+  return (
+    <div>
+      <ReactReduxWebAudio />
+      <RRWAExamplesApp />
+    </div>
+  );
+};
