@@ -1,12 +1,14 @@
 import React from 'react';
 
-import ReactReduxWebAudio from '../rrwa';
+import RRWAEngine from '../rrwa/component';
 import RRWAExamplesApp from './components';
 
+
 export default () => {
+
   return (
     <div>
-      <ReactReduxWebAudio />
+      <RRWAEngine />
       <RRWAExamplesApp />
     </div>
   );
