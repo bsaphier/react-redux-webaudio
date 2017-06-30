@@ -1,7 +1,7 @@
-import * as audioActionCreators from './audio-actions/action-creators';
-import audioContextProvider from './audioContextProvider';
+import * as actionCreators from './action-creators';
+import webAudioReducer from './web-audio-reducer';
 
 module.exports = {
-  audioActionCreators,
-  audioContextProvider
+  actionCreators,
+  webAudioReducer
 };
