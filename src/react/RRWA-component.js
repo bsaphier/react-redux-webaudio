@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { emit, clearEvtQueue } from '../actions';
+import { clearEvtQueue } from '../actions';
 
 
 class RRWA extends React.Component {
@@ -50,7 +50,6 @@ const mapState = ({ webAudioReducer }) => ({ ...webAudioReducer });
 
 
 const mapDispatch = (dispatch) => ({
-  emit: (evt) => dispatch( emit(evt) ),
   clearQ:  () => dispatch( clearEvtQueue() )
 });
 
