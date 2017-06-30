@@ -9,15 +9,15 @@ The [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_A
 npm i react-redux-webaudio
 ```
 
-##Documentation
+## Documentation
 
-# RRWAEngine
+### RRWAEngine
 * The React component.
 
-# webAudioReducer
+### webAudioReducer
 * The reducer.
 
-# actions
+### actions
 * Do stuff.
 
 * include webAudioReducer as one of the reducers in your redux store
