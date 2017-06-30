@@ -11,6 +11,10 @@ export const clearEvtQueue = () => ({
 });
 
 
+/*
+ * @event can be a single event object or an array of events. An array
+ * passed as @event will be concatenated with the current event queue
+ */
 export const emit = (event) => ({
   type: QUEUE_EVENT,
   event

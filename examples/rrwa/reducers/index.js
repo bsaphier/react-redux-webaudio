@@ -24,10 +24,19 @@ export default (state = INIT_STATE, action) => {
       break;
 
     case QUEUE_EVENT:
-      nextState.events.push({
-        key: state.events.length,
-        event: action.event
-      });
+      if (Array.isArray(action.event)) {
+        action.event.forEach((event, idx) => {
+          nextState.events.push({
+            key: (state.events.length + idx),
+            event: event
+          });
+        });
+      } else {
+        nextState.events.push({
+          key: state.events.length,
+          event: action.event
+        });
+      }
       break;
 
     case CLEAR_EVT_QUEUE:

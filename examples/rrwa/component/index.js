@@ -32,11 +32,7 @@ class RRWA extends React.Component {
   }
 
   processEvent({ event }) {
-    /*
-     * @event is a function containing webaudio API calls
-     */
     event( this.audioContext, this.getCurrTime() );
-    console.log( 'after', this.getCurrTime() );
   }
 
   getCurrTime() {
@@ -44,7 +40,6 @@ class RRWA extends React.Component {
   }
 
   render() {
-    console.log('RRWA', this.props);
     return null;
   }
 

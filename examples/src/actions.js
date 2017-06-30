@@ -1,8 +1,13 @@
-export const playSynthUI = () => ({
-  type: 'PLAY'
+export const startCtxUI = () => ({
+  type: 'START'
 });
 
 
-export const pauseSynthUI = () => ({
-  type: 'PAUSE'
+export const susResAudioCtx = () => ({
+  type: 'TOGGLE_CTX_RUNNING'
+});
+
+
+export const closeCtxUI = () => ({
+  type: 'CLOSE'
 });
