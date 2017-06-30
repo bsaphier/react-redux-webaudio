@@ -1,22 +1,10 @@
 import { combineReducers } from 'redux';
 
-import { audioContextProvider as webAudioReducer } from '../../../src';
+import webAudioReducer     from '../../rrwa/reducers';
+import uiReducer          from './ui-reducer';
 
-
-const initialState = {
-  hello: 'WORLD'
-};
-
-const helloWorld = (state = initialState, action) => {
-  const nextState = {...state};
-  switch (action.type) {
-    default:
-      break;
-  }
-  return nextState;
-};
 
 export default combineReducers({
   webAudioReducer,
-  helloWorld
+  uiReducer
 });

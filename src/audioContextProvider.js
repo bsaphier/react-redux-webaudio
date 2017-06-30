@@ -23,6 +23,25 @@ const audioContextProvider = (state = initialState, action) => {
 
   switch (action.type) {
 
+    case 'CREATE_OSCILLATOR':
+      nextState
+        .contextAndGraph
+        .audioNodes[action.name] = nextState
+                                    .contextAndGraph
+                                    .context
+                                    .createOscillator();
+
+      return nextState;
+
+
+    case 'START_SOURCE_NODE':
+      nextState
+        .contextAndGraph
+        .audioNodes[action.name].start(action.time);
+
+      return nextState;
+
+
     // case 'CREATE_AUDIO_CONTEXT':
     //   nextState
     //     .contextAndGraph
@@ -31,50 +50,50 @@ const audioContextProvider = (state = initialState, action) => {
     //     );
     //
     //   return nextState;
-
-
-    case 'SUSPEND_AUDIO_CONTEXT':
-      nextState
-        .contextAndGraph
-        .context.suspend();
-
-      return nextState;
-
-
-    case 'RESUME_AUDIO_CONTEXT':
-      nextState
-        .contextAndGraph
-        .context.resume();
-
-      return nextState;
-
-
-    case 'CLOSE_AUDIO_CONTEXT':
-      nextState
-        .contextAndGraph
-        .context.close();
-
-      return nextState;
-
-
-    case 'CONNECT':
-      toThatNode = nextState
-                    .contextAndGraph
-                    .audioNodes[action.toThatNode]
-                 ||
-                   nextState
-                    .contextAndGraph
-                    .context
-                    .destination;
-
-      connectThisNode = nextState
-                        .contextAndGraph
-                        .audioNodes[action.connectThisNode];
-
-      connectThisNode.connect(toThatNode);
-
-      return nextState;
-
+    //
+    //
+    // case 'SUSPEND_AUDIO_CONTEXT':
+    //   nextState
+    //     .contextAndGraph
+    //     .context.suspend();
+    //
+    //   return nextState;
+    //
+    //
+    // case 'RESUME_AUDIO_CONTEXT':
+    //   nextState
+    //     .contextAndGraph
+    //     .context.resume();
+    //
+    //   return nextState;
+    //
+    //
+    // case 'CLOSE_AUDIO_CONTEXT':
+    //   nextState
+    //     .contextAndGraph
+    //     .context.close();
+    //
+    //   return nextState;
+    //
+    //
+    // case 'CONNECT':
+    //   toThatNode = nextState
+    //                 .contextAndGraph
+    //                 .audioNodes[action.toThatNode]
+    //              ||
+    //                nextState
+    //                 .contextAndGraph
+    //                 .context
+    //                 .destination;
+    //
+    //   connectThisNode = nextState
+    //                     .contextAndGraph
+    //                     .audioNodes[action.connectThisNode];
+    //
+    //   connectThisNode.connect(toThatNode);
+    //
+    //   return nextState;
+    //
     // case 'CONNECT_TO_PARAM':
     //   connectThisNode = nextState
     //                     .contextAndGraph
@@ -82,30 +101,30 @@ const audioContextProvider = (state = initialState, action) => {
     //
     //   connectThisNode.connect(action.toThisParam);
     //   return nextState;
-
-
-    case 'CREATE_BIQUAD_FILTER':
-      nextState
-        .contextAndGraph
-        .audioNodes[action.name] = nextState
-                                    .contextAndGraph
-                                    .context
-                                    .createBiquadFilter(action.maxDelayTime);
-
-      return nextState;
-
-
-    case 'CREATE_GAIN':
-      nextState
-        .contextAndGraph
-        .audioNodes[action.name] = nextState
-                                    .contextAndGraph
-                                    .context
-                                    .createGain();
-
-      return nextState;
-
-
+    //
+    //
+    // case 'CREATE_BIQUAD_FILTER':
+    //   nextState
+    //     .contextAndGraph
+    //     .audioNodes[action.name] = nextState
+    //                                 .contextAndGraph
+    //                                 .context
+    //                                 .createBiquadFilter(action.maxDelayTime);
+    //
+    //   return nextState;
+    //
+    //
+    // case 'CREATE_GAIN':
+    //   nextState
+    //     .contextAndGraph
+    //     .audioNodes[action.name] = nextState
+    //                                 .contextAndGraph
+    //                                 .context
+    //                                 .createGain();
+    //
+    //   return nextState;
+    //
+    //
     // case 'CREATE_DELAY':
     //   nextState
     //     .contextAndGraph
@@ -137,19 +156,8 @@ const audioContextProvider = (state = initialState, action) => {
     //                                 .createDynamicsCompressor();
     //
     //   return nextState;
-
-
-    case 'CREATE_OSCILLATOR':
-      nextState
-        .contextAndGraph
-        .audioNodes[action.name] = nextState
-                                    .contextAndGraph
-                                    .context
-                                    .createOscillator();
-
-      return nextState;
-
-
+    //
+    //
     // case 'CREATE_BUFFER_SOURCE':
     //   nextState
     //     .contextAndGraph
@@ -167,26 +175,18 @@ const audioContextProvider = (state = initialState, action) => {
     //     .then(action.callbackFunc);
     //
     //   return nextState;
-
-
-    case 'START_SOURCE_NODE':
-      nextState
-        .contextAndGraph
-        .audioNodes[action.name].start(action.time);
-
-      return nextState;
-
-
-    case 'SET_PARAM':
-      set(
-        nextState.contextAndGraph.audioNodes,
-        action.param,
-        action.value
-      );
-
-      return nextState;
-
-
+    //
+    //
+    // case 'SET_PARAM':
+    //   set(
+    //     nextState.contextAndGraph.audioNodes,
+    //     action.param,
+    //     action.value
+    //   );
+    //
+    //   return nextState;
+    //
+    //
     // case 'SET_VALUE_AT_TIME':
     //   invoke(
     //     nextState.contextAndGraph.audioNodes,

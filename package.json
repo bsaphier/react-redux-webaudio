@@ -4,6 +4,7 @@
   "description": "The Web Audio API, thinly wrapped for easy integration with React-Redux",
   "main": "index.js",
   "scripts": {
+    "build-wp": "webpack",
     "build": "rm -rf lib && babel --presets es2016,react src -d lib",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,11 +19,15 @@
   "license": "ISC",
   "devDependencies": {
     "babel-cli": "^6.18.0",
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-preset-es2016": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "react": "^15.6.1",
     "react-redux": "^5.0.5",
-    "redux": "^3.7.0"
+    "redux": "^3.7.0",
+    "webpack": "^3.0.0"
   },
   "dependencies": {
     "lodash.invoke": "^4.5.2",
