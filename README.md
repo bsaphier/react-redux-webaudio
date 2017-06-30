@@ -20,6 +20,8 @@ npm i react-redux-webaudio
 ### actions
 * Do stuff.
 
+#
+
 * include webAudioReducer as one of the reducers in your redux store
 ```javascript
 const rootReducer = combineReducers({
