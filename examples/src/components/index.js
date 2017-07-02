@@ -2,8 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { startCtxUI, closeCtxUI, susResAudioCtx } from '../actions';
-import { emit } from '../../rrwa/actions';
-// import { emit } from '../../../../react-redux-webaudio';
+import { actionCreators } from '../../../../react-redux-webaudio';
+
+
+const emit = actionCreators.emit;
 
 
 const Comp = (props) => {
@@ -66,16 +68,9 @@ const close = (audioCtx) => {
 };
 
 
-const testTime = (audioCtx, currTime) => {
-  console.log( currTime );
-  return 'HI';
-};
-
-
 export default connect(
   state => ({...state}),
   dispatch => ({
-    test: () => dispatch( emit( testTime ) ),
     start:  () => {
       dispatch( startCtxUI() );
       dispatch( emit( start ) );

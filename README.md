@@ -16,11 +16,11 @@ npm i react-redux-webaudio
 **React-Redux-Webaudio** consists of three modules:
 - **webAudioReducer** – *The reducer.*
 - **RRWAEngine** –––––– *The React component.*
-- **actions**\* ––––––––––– *The module containing Redux action-creators.*
-######  \* It is not required that you use the actions provided.
+- **actionCreators**\* ––– *The module containing Redux action-creators.*
+######  \* It is not required that you use the actions provided from actionCreators.
 
 
-#### The Redux Part:
+### The Redux Part:
 
 ##### Audio-Event: **(audioCtx: window.AudioContext, currentTime: number) => any**
 In the context of **React-Redux-Webaudio**, an "*audio-event*" is a function that receives a reference to an instance of the window.AudioContext as well as the the *currentTime* value of that instance.
@@ -71,7 +71,7 @@ store.dispatch( action ); // more practically, include the action inside react-r
 
 ---
 
-#### The React Part:
+### The React Part:
 ##### RRWAEngine: React component
 Include the RRWAEngine component anywhere in your app. The only requirement is that it must be within scope of the Redux store containing the webAudioReducer. Placing this component in the top level of your app makes sense in most scenarios.
 
@@ -103,7 +103,7 @@ ReactDOM.render(
 const Container = connect(
   state => state,
   dispatch => ({
-    makeNoise: () => dispatch( actions.emit( audioEvent ) );
+    makeNoise: () => dispatch( actionCreators.emit( audioEvent ) );
   })
 )(ReactComponent);
 ```

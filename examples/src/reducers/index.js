@@ -1,8 +1,7 @@
 import { combineReducers } from 'redux';
 
-import webAudioReducer     from '../../rrwa/reducers';
-// import webAudioReducer     from '../../../../react-redux-webaudio';
-import uiReducer          from './ui-reducer';
+import { webAudioReducer } from '../../../../react-redux-webaudio';
+import uiReducer           from './ui-reducer';
 
 
 export default combineReducers({

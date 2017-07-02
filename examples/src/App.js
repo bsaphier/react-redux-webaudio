@@ -1,8 +1,7 @@
 import React from 'react';
 
-import RRWAEngine from '../rrwa/component';
+import { RRWAEngine }  from '../../../react-redux-webaudio';
 import RRWAExamplesApp from './components';
-// import RRWAExamplesApp from '../../../react-redux-webaudio';
 
 
 export default () => {
