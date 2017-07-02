@@ -9,21 +9,21 @@ npm i react-redux-webaudio
 
 ---
 
-### **Documentation**
+## **Documentation**
 ###### \*\* _still in progress_ \*\*
-
-##### There are two main parts to **React-Redux-Webaudio**: the Redux reducer and the React component.
 
 
 The package consists of three modules:
-  - **webAudioReducer** – *The reducer.*
-  - **RRWAEngine** –––––– *The React component.*
-  - **actions**\* ––––––––––– *The module containing Redux action-creators.*
+- **webAudioReducer** – *The reducer.*
+- **RRWAEngine** –––––– *The React component.*
+- **actions**\* –––––––––– *The module containing Redux action-creators.*
 
-  \* It is not required that you use the actions provided.
+There are two main parts to **React-Redux-Webaudio**: the Redux reducer and the React component.
+
+######  \* It is not required that you use the actions provided.
 
 
-##### The Redux Part:
+#### The Redux Part:
 ###### **Action-Creator**: emit
 
   The emit action receives an array of "*audio-events*" or a single "*audio-event*" callback function.
