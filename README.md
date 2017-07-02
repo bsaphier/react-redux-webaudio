@@ -1,5 +1,5 @@
 # **REACT-REDUX-WEBAUDIO**
-##### The [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API), thinly wrapped for easy integration with React-Redux.
+###### The [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API), thinly wrapped for easy integration with React-Redux.
 
 
 ### **Installation:**
@@ -10,9 +10,9 @@ npm i react-redux-webaudio
 ---
 
 ### **Documentation**
-\*\* _still in progress_ \*\*
+###### \*\* _still in progress_ \*\*
 
-###### There are two main parts to **React-Redux-Webaudio**: the Redux reducer and the React component.
+##### There are two main parts to **React-Redux-Webaudio**: the Redux reducer and the React component.
 
 
 The package consists of three modules:
