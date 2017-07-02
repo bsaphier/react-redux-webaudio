@@ -1,4 +1,7 @@
 src/
 examples/
+v0.0.1/
 IDEAS.txt
 TODO.txt
+.babelrc
+webpack.config.js
