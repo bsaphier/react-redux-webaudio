@@ -8,7 +8,6 @@ class RRWA extends React.Component {
 
   constructor(props) {
     super(props);
-
     this.getCurrTime = this.getCurrTime.bind(this);
   }
 
