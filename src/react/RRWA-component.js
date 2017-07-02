@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { clearEvtQueue } from '../actions';
+import { clearEvtQueue } from '../action-creators';
 
 
 class RRWA extends React.Component {

@@ -1,4 +1,4 @@
-import { CREATE, QUEUE_EVENT, CLEAR_EVT_QUEUE } from '../constants';
+import { CREATE, QUEUE_EVENT, CLEAR_EVT_QUEUE } from './constants';
 
 
 const INIT_STATE = {

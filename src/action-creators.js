@@ -1,7 +1,7 @@
 import {
-  OSC,
-  GAIN,
-  CREATE,
+  // OSC,
+  // GAIN,
+  // CREATE,
   QUEUE_EVENT,
   CLEAR_EVT_QUEUE } from './constants';
 
@@ -21,15 +21,15 @@ export const emit = (event) => ({
 });
 
 
-export const createOsc = (id) => ({
-  type: CREATE,
-  nodeType: OSC,
-  id
-});
-
-
-export const createGain = (id) => ({
-  type: CREATE,
-  nodeType: GAIN,
-  id
-});
+// export const createOsc = (id) => ({
+//   type: CREATE,
+//   nodeType: OSC,
+//   id
+// });
+//
+//
+// export const createGain = (id) => ({
+//   type: CREATE,
+//   nodeType: GAIN,
+//   id
+// });
