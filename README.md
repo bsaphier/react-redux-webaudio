@@ -1,28 +1,25 @@
 # react-redux-webaudio
 
-The [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API), thinly wrapped for easy integration with React-Redux.
+###### The [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API), thinly wrapped for easy integration with React-Redux.
 
-# this package is still in progress, does not include any tests and is subject to change...
-
-## Installation
+#### Installation:
 ```bash
 npm i react-redux-webaudio
 ```
 
-## Documentation
+---
 
-### RRWAEngine
-* The React component.
+### **Documentation**
 
-### webAudioReducer
-* The reducer.
+- React-Redux-Webaudio consists of two main parts: a Redux reducer and a React component.
+- Only one action is required for almost any scenario: emit. Pass the emit action an array or a callback function. The callback which will be pushed on to a queue of audio "*events*". If emit is given an array, the array will be concatenated with the current queue of audio "*events*".
 
-### actions
-* Do stuff.
+The package contains three main modules:
+  - **webAudioReducer** – *The reducer.*
+  - **actions** ––––––––––– *The module containing Redux action-creators. You only need emit.*
+  - **RRWAEngine** ––––– *The React component.*
 
-#
 
-* include webAudioReducer as one of the reducers in your redux store
 ```javascript
 const rootReducer = combineReducers({
   ...
@@ -30,13 +27,10 @@ const rootReducer = combineReducers({
 });
 
 const store = createStore( rootReducer );
-```
 
-* Ideally, place RRWAEngine in your top level component
-```javascript
 
 ReactDOM.render(
-  <Provider store={store}>
+  <Provider store={ store }>
     <RRWAEngine />
     <App />
   </Provider>,
@@ -44,9 +38,10 @@ ReactDOM.render(
 );
 ```
 
-* the emit action creator gets passed a reference to an instance of window.AudioContext
+Dispatch the emit action-creator with an event or array of events. Each event will be passed a reference to an instance of window.AudioContext as well as the the '*currentTime*' of that instance.
+
 ```javascript
-let audioEvent = (audioContext, currentTime) => {
+let audioEvent = ( audioContext, currentTime ) => {
 
   let oscillator = audioContext.createOscillator();
   let gainNode = audioContext.createGain();
@@ -56,7 +51,7 @@ let audioEvent = (audioContext, currentTime) => {
 
   oscillator.type = 'square';
   oscillator.frequency.value = 100;
-  oscillator.start(currentTime);
+  oscillator.start(currentTime + 500); // wait half a second, then make sound.
 
   gainNode.gain.value = 0.1;
 
@@ -70,3 +65,6 @@ const Container = connect(
   })
 )(ReactComponent);
 ```
+---
+
+###### Issues and Pull Requests always welcome :)
