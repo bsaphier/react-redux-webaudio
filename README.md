@@ -1,6 +1,6 @@
 # **REACT-REDUX-WEBAUDIO**
 ###### The [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API), thinly wrapped for easy integration with React-Redux.
-
+This package was heavily inspired by [this article](http://joesul.li/van/react-and-web-audio/).
 
 ### **Installation:**
 ```bash
@@ -108,5 +108,7 @@ const Container = connect(
 )(ReactComponent);
 ```
 ---
+
+
 
 ###### *Comments, questions, github issues, and Pull Requests are welcome* :)
