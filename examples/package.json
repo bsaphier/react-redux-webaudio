@@ -1,21 +1,13 @@
 {
-  "name": "react-redux-webaudio",
-  "version": "1.0.0",
-  "description": "The Web Audio API, thinly wrapped for easy integration with React-Redux",
+  "name": "react-redux-webaudio-examples",
+  "version": "0.0.1",
+  "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "webpack-dev-server --open",
     "build": "webpack",
-    "build-prod": "webpack -p",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [
-    "webaudio",
-    "webaudioapi",
-    "html5",
-    "react",
-    "redux",
-    "audio"
-  ],
   "author": "bsaphier",
   "license": "ISC",
   "devDependencies": {
@@ -24,10 +16,12 @@
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
-    "webpack": "^3.0.0"
+    "webpack": "^3.0.0",
+    "webpack-dev-server": "^2.5.0"
   },
   "dependencies": {
     "react": "^15.6.1",
+    "react-dom": "^15.6.1",
     "react-redux": "^5.0.5",
     "redux": "^3.7.0"
   }

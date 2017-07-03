@@ -1,7 +1,10 @@
-import * as audioActionCreators from './audio-actions/action-creators';
-import audioContextProvider from './audioContextProvider';
+import * as actionCreators from './action-creators';
+import webAudioReducer from './web-audio-reducer';
+import RRWAEngine from './react/RRWA-component';
+
 
 module.exports = {
-  audioActionCreators,
-  audioContextProvider
+  RRWAEngine,
+  actionCreators,
+  webAudioReducer
 };
