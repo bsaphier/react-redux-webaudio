@@ -1,6 +1,1 @@
 # TESTS!
-  + audioContextAndGraph should ...
-  + createAudioContext should ...
-
-
-Make a list and add all the methods of the webAudio API to the reducer
