@@ -2,6 +2,8 @@
 ###### The [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API), thinly wrapped for easy integration with React-Redux.
 This package was heavily inspired by [this article](http://joesul.li/van/react-and-web-audio/).
 
+[EXAMPLES](https://bsaphier.github.io/react-redux-webaudio/examples/index.html)
+
 ### **Installation:**
 ```bash
 npm i react-redux-webaudio
