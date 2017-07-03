@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
+  "homepage": "https://bsaphier.github.io/react-redux-webaudio/examples",
   "scripts": {
     "start": "webpack-dev-server --open",
     "build": "webpack",
