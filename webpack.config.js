@@ -1,8 +1,12 @@
+const path = require('path');
+
 module.exports = {
   entry: './src/index.js',
   output: {
-    path: __dirname,
-    filename: './lib/bundle.js'
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'react-redux-webaudio.js',
+    library: 'reactReduxWebaudio',
+    libraryTarget: 'umd'
   },
   context: __dirname,
   module: {
@@ -14,5 +18,10 @@ module.exports = {
         presets: ['react', 'es2015']
       }
     }]
-  }
+  },
+  externals: [
+    'react',
+    'redux',
+    'react-redux'
+  ]
 };
