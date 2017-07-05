@@ -1,0 +1,88 @@
+$on: rgb(45, 189, 45);
+$off: rgb(225, 189, 65);
+$dRed: rgb(189, 45, 45);
+$fontColor: rgb(189, 189, 189);
+$lighten: rgba(255, 255, 255, 0.1);
+$darken: rgba(0, 0, 0, 0.2);
+
+
+html {
+  background-color: rgb(45,45,45);
+}
+
+#app {
+  font-size: 20px;
+  font-weight: 100;
+  font-family: sans-serif;
+  color: $fontColor;
+}
+
+div {
+  p {
+    margin: 5px auto;
+    font-size: 2rem;
+    text-shadow: 3px 5px 3px $darken;
+  }
+}
+
+.main {
+  text-align: center;
+}
+
+.title {
+  &>h1 {
+    display: inline;
+    line-height: 6rem;
+    font-weight: lighter;
+    font-size: 4rem;
+  }
+  margin: 40px auto auto;
+}
+
+.btn-wrap {
+  display: flex;
+  flex-direction: column;
+
+  margin: auto;
+  min-width: 300px;
+  max-width: 80%;
+
+}
+
+.button {
+  &.light {
+    background-color: $lighten;
+  }
+  cursor: default;
+
+  min-width: 10rem;
+  padding: 8px 0;
+  margin: 5px auto;
+
+  border: 1px solid $fontColor;
+  border-radius: 3px;
+  box-shadow: 0.3em 0.5em 1em 1px $darken;
+}
+
+.sm {
+  color: $dRed;
+  border-color: $dRed;
+}
+
+.on {
+  color: $on;
+  border-color: $on;
+}
+
+.off {
+  color: $off;
+  border-color: $off;
+}
+
+.bold {
+  font-weight: 600;
+}
+
+.hide {
+  display: none;
+}

@@ -2,7 +2,7 @@
 ###### The [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API), thinly wrapped for easy integration with React-Redux.
 This package was heavily inspired by [this article](http://joesul.li/van/react-and-web-audio/).
 
-[EXAMPLES](https://bsaphier.github.io/react-redux-webaudio/examples/index.html)
+[DEMO](https://bsaphier.github.io/react-redux-webaudio/examples/index.html)
 
 ### **Installation:**
 ```bash
@@ -10,6 +10,43 @@ npm i react-redux-webaudio
 ```
 
 ---
+
+#### Basic Setup
+```javascript
+import { RRWAEngine, actionCreators, webAudioReducer } from 'react-redux-webaudio';
+...
+
+
+const rootReducer = combineReducers({
+  ...
+  webAudioReducer
+});
+
+const store = createStore( rootReducer );
+
+
+ReactDOM.render(
+  <Provider store={ store }>
+    <RRWAEngine />
+    <App />
+  </Provider>,
+  document.getElementById('app')
+);
+
+
+...
+
+
+// wire up a container component used somewhere inside <App />
+const Container = connect(
+  state => state,
+  dispatch => ({
+    makeNoise: () => dispatch( actionCreators.emit( audioEvent ) );
+  })
+)(ReactComponent);
+```
+---
+
 
 ## **Documentation**
 ###### \*\* _still in progress_ \*\*
@@ -78,39 +115,6 @@ store.dispatch( action ); // more practically, include the action inside react-r
 Include the RRWAEngine component anywhere in your app. The only requirement is that it must be within scope of the Redux store containing the webAudioReducer. Placing this component in the top level of your app makes sense in most scenarios.
 
 ---
-
-#### Basic Setup
-```javascript
-const rootReducer = combineReducers({
-  ...
-  webAudioReducer
-});
-
-const store = createStore( rootReducer );
-
-
-ReactDOM.render(
-  <Provider store={ store }>
-    <RRWAEngine />
-    <App />
-  </Provider>,
-  document.getElementById('app')
-);
-
-
-...
-
-
-// wire up a container component used somewhere inside <App />
-const Container = connect(
-  state => state,
-  dispatch => ({
-    makeNoise: () => dispatch( actionCreators.emit( audioEvent ) );
-  })
-)(ReactComponent);
-```
----
-
 
 
 ###### *Comments, questions, github issues, and Pull Requests are welcome* :)
