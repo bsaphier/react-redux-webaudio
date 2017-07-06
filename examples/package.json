@@ -2,7 +2,7 @@
   "name": "react-redux-webaudio-examples",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "public/index.html",
   "scripts": {
     "start": "webpack-dev-server --open",
     "build": "webpack -p",

@@ -14,6 +14,7 @@ const webAudioReducer = (state = INIT_STATE, action) => {
       events: [...state.events]
     };
 
+
     switch (action.type) {
 
       case CREATE:
@@ -47,6 +48,7 @@ const webAudioReducer = (state = INIT_STATE, action) => {
         break;
 
     }
+
 
     return nextState;
 
