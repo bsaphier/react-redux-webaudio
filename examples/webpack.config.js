@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
   entry: './src/index.js',
   output: {
@@ -6,6 +8,11 @@ module.exports = {
   },
   context: __dirname,
   devtool: 'source-map',
+  devServer: {
+    contentBase: path.join(__dirname, 'public'),
+    compress: true,
+    port: 1337
+  },
   module: {
     loaders: [{
       test: /jsx?$/,
