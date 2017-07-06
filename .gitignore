@@ -1,3 +1,7 @@
-dist
+dist/
+TODO.txt
+
 node_modules
+
+.npmignore
 .eslintrc

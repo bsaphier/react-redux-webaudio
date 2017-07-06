@@ -1,5 +1,5 @@
 const initialState = {
-  action: ' - ',
+  msg: ' - ',
   susResToggle: 'SUSPEND'
 };
 
@@ -10,20 +10,20 @@ export default (state = initialState, action) => {
 
   switch (action.type) {
     case 'START':
-      nextState.action = 'START';
+      nextState.msg = 'BUZZING';
       break;
 
     case 'TOGGLE_CTX_RUNNING':
       nextState.susResToggle = nextState.susResToggle === 'SUSPEND'
         ? 'RESUME'
         : 'SUSPEND';
-      nextState.action = nextState.susResToggle === 'SUSPEND'
-        ? 'RUNNING'
-        : 'SUSPENDED';
+      nextState.msg = nextState.susResToggle === 'SUSPEND'
+        ? 'BUZZING'
+        : 'PAUSED';
       break;
 
     case 'CLOSE':
-      nextState.action = 'CLOSE';
+      nextState.msg = 'AUDIO CONTEXT CLOSED!';
       break;
 
     default:

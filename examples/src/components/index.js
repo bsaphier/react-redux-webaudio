@@ -3,30 +3,62 @@ import { connect } from 'react-redux';
 import { actionCreators } from 'react-redux-webaudio';
 
 import { startCtxUI, closeCtxUI, susResAudioCtx } from '../actions';
-// import { actionCreators } from '../../../../react-redux-webaudio';
 
-
-const emit = actionCreators.emit;
+let closed   = false,
+    oscCount = 0;
 
 
 const Comp = (props) => {
 
-  let { action, susResToggle } = props.uiReducer;
+  let { msg, susResToggle } = props.uiReducer;
+
+  function create() {
+    props.start();
+    oscCount++;
+  }
+
+  function kill() {
+    props.close();
+    closed = true;
+  }
 
   return (
-    <div>
+    <div className="main">
 
-      <div>{`ACTION: ${ action }`}</div>
+      <div className="title">
+        <h1>{ msg }</h1>
+      </div>
 
       <br />
 
-      <div>
+      <div className={closed ? 'hide' : ''}>
 
-        <button type="button" onClick={props.start}>{'START'}</button>
+        <div>
+          <p className="bold">LOUD!</p>
+          <p>TURN DOWN THE VOLUME!</p>
+        </div>
 
-        <button type="button" onClick={props.susRes}>{susResToggle}</button>
+        <div className="btn-wrap">
 
-        <button type="button" onClick={props.close}>{'CLOSE'}</button>
+          <div
+            className={`button light ${oscCount > 0 ? 'hide' : ''}`}
+            onClick={create}>
+            {'CREATE'}
+          </div>
+
+          <div
+            className={`button ${msg === 'BUZZING' ? 'off' : 'on'} ${oscCount === 0 ? 'hide' : ''}`}
+            onClick={msg === 'CLOSE' ? null : props.susRes}>
+            {susResToggle}
+          </div>
+
+          <div
+            className={`button sm ${oscCount === 0 ? 'hide' : ''}`}
+            onClick={kill}>
+            {'KILL'}
+          </div>
+
+        </div>
 
       </div>
 
@@ -67,6 +99,9 @@ const susRes = (audioCtx) => {
 const close = (audioCtx) => {
   audioCtx.close();
 };
+
+
+const emit = actionCreators.emit;
 
 
 export default connect(
