@@ -1,5 +1,6 @@
 dist/
 TODO.txt
+coverage/
 
 node_modules
 

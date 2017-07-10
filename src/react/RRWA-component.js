@@ -1,10 +1,21 @@
-import React from 'react';
+import { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { clearEvtQueue } from '../action-creators';
 
 
-class RRWA extends React.Component {
+let AudioContext = window.AudioContext || window.webkitAudioContext;
+
+
+const mapState = ({ webAudioReducer }) => ({ ...webAudioReducer });
+
+
+const mapDispatch = (dispatch) => ({
+  clearQ:  () => dispatch( clearEvtQueue() )
+});
+
+
+export class RRWA extends Component {
 
   constructor(props) {
     super(props);
@@ -12,7 +23,9 @@ class RRWA extends React.Component {
   }
 
   componentWillMount() {
-    this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    if (AudioContext) {
+      this.audioContext = new AudioContext();
+    }
   }
 
   componentWillUnmount() {
@@ -45,12 +58,4 @@ class RRWA extends React.Component {
 }
 
 
-const mapState = ({ webAudioReducer }) => ({ ...webAudioReducer });
-
-
-const mapDispatch = (dispatch) => ({
-  clearQ:  () => dispatch( clearEvtQueue() )
-});
-
-
-export default connect(mapState, mapDispatch)(RRWA);
+export default connect(mapState, mapDispatch)( RRWA );
