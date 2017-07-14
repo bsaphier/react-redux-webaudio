@@ -1,5 +1,6 @@
-const { StreamAudioContext } = require('web-audio-engine');
+const { RenderingAudioContext } = require('web-audio-engine');
 
 export default (function() {
-  global.AudioContext = StreamAudioContext;
+  window.AudioContext = RenderingAudioContext;
+  global.AudioContext = RenderingAudioContext;
 })();

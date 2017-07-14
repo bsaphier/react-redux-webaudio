@@ -7,10 +7,15 @@ import { clearEvtQueue } from '../action-creators';
 let AudioContext = window.AudioContext || window.webkitAudioContext;
 
 
-const mapState = ({ webAudioReducer }) => ({ ...webAudioReducer });
+/*********************************
+ *
+ * Export everything, for testing.
+ *
+ *********************************/
+export const mapState = ({ webAudioReducer }) => ({ ...webAudioReducer });
 
 
-const mapDispatch = (dispatch) => ({
+export const mapDispatch = (dispatch) => ({
   clearQ:  () => dispatch( clearEvtQueue() )
 });
 
