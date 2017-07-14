@@ -1,4 +1,4 @@
-# REACT-REDUX-WEBAUDIO &middot; [![npm](https://img.shields.io/npm/v/npm.svg)](https://www.npmjs.com/package/react-redux-webaudio)
+# REACT-REDUX-WEBAUDIO &middot; [![npm](https://img.shields.io/npm/v/react-redux-webaudio.svg)](https://www.npmjs.com/package/react-redux-webaudio)
 ###### The [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API), thinly wrapped for easy integration with React-Redux.
 This tiny library was inspired by [this article](http://joesul.li/van/react-and-web-audio/).
 
@@ -43,7 +43,7 @@ const Container = connect(
   dispatch => ({
     makeNoise: () => dispatch( actionCreators.emit( audioEvent ) );
   })
-)(ReactComponent);
+)(ReactComponent);M
 ```
 ---
 
