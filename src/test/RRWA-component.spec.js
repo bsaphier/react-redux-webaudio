@@ -2,7 +2,7 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { RRWA } from '../react/RRWA-component';
+import { RRWA, mapState, mapDispatch } from '../react/RRWA-component';
 
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
@@ -12,7 +12,7 @@ describe('RRWA component', () => {
 
   let spy, wrapper, _audioCtx_, _instance_;
 
-  describe('lifecycle Methods:', () => {
+  describe('Lifecycle Methods:', () => {
 
     describe('componentWillMount', () => {
       it('creates an instance of AudioContext', () => {
@@ -56,15 +56,15 @@ describe('RRWA component', () => {
 
   });
 
-  describe('Methods:', () => {
+  describe('Instance Methods:', () => {
 
-    beforeAll(() => {
+    beforeEach(() => {
       wrapper = mount(<RRWA />);
       _instance_ = wrapper.instance();
       _audioCtx_ = _instance_.audioContext;
     });
 
-    afterAll(() => {
+    afterEach(() => {
       wrapper.unmount();
     });
 
@@ -101,5 +101,42 @@ describe('RRWA component', () => {
     });
 
   });
+
+  describe('Functions for Redux:', () => {
+
+    describe('mapStateToProps', () => {
+
+      let mockState = { webAudioReducer: { nodes: {}, events: [] } };
+
+      it('returns an object containing the values of the webAudioReducer', () => {
+        expect(mapState(mockState)).toEqual(mockState.webAudioReducer);
+        expect(mapState(mockState)).toMatchObject(mockState.webAudioReducer);
+      });
+
+      it('returns a new object', () => {
+        expect(mapState(mockState)).not.toBe(mockState.webAudioReducer);
+        expect(mapState(mockState)).not.toContain(mockState.webAudioReducer.nodes);
+        expect(mapState(mockState)).not.toContain(mockState.webAudioReducer.events);
+      });
+
+    });
+
+    describe('mapDispatchToProps', () => {
+
+      it('returns an object containing a function, clearQ', () => {
+        expect(mapDispatch()).toHaveProperty('clearQ');
+      });
+
+      it('the value of clearQ is a function that calls the function passed to mapDispatch', () => {
+        let dispatch = jest.fn();
+        let mappedProps = mapDispatch(dispatch);
+        mappedProps.clearQ();
+        expect(dispatch).toHaveBeenCalled();
+      });
+
+    });
+
+  });
+
 
 });
