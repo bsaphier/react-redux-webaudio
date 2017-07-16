@@ -1,5 +1,5 @@
 # REACT-REDUX-WEBAUDIO
-[![npm](https://img.shields.io/npm/v/react-redux-webaudio.svg)](https://www.npmjs.com/package/react-redux-webaudio)
+[![Coverage Status](https://coveralls.io/repos/github/bsaphier/react-redux-webaudio/badge.svg)](https://coveralls.io/github/bsaphier/react-redux-webaudio) [![npm](https://img.shields.io/npm/v/react-redux-webaudio.svg)](https://www.npmjs.com/package/react-redux-webaudio)
 ###### The [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API), thinly wrapped for easy integration with React-Redux.
 
 ## Demo & Examples
