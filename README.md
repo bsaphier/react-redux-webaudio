@@ -1,17 +1,23 @@
-# **REACT-REDUX-WEBAUDIO**
+# REACT-REDUX-WEBAUDIO
+[![Build Status](https://travis-ci.org/bsaphier/react-redux-webaudio.svg?branch=master)](https://travis-ci.org/bsaphier/react-redux-webaudio) [![Coverage Status](https://coveralls.io/repos/github/bsaphier/react-redux-webaudio/badge.svg?branch=master)](https://coveralls.io/github/bsaphier/react-redux-webaudio) [![npm](https://img.shields.io/npm/v/react-redux-webaudio.svg)](https://www.npmjs.com/package/react-redux-webaudio)
 ###### The [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API), thinly wrapped for easy integration with React-Redux.
-This tiny library was inspired by [this article](http://joesul.li/van/react-and-web-audio/).
 
-[DEMO](https://bsaphier.github.io/react-redux-webaudio/examples/public/index.html)
+## Demo & Examples
+[Live Demo](https://bsaphier.github.io/react-redux-webaudio/examples/public/index.html)
+To build the examples locally, clone/fork the repo and run:
+```
+cd examples
+yarn /* OR */ npm install
+npm start   // this will start a webpack-dev-server and open the demo in your browser
+```
 
-### **Installation:**
+## Installation & Setup
 ```bash
 npm i react-redux-webaudio
 ```
 
----
 
-#### Basic Setup
+### Basic Setup
 ```javascript
 import { RRWAEngine, actionCreators, webAudioReducer } from 'react-redux-webaudio';
 ...
@@ -43,29 +49,28 @@ const Container = connect(
   dispatch => ({
     makeNoise: () => dispatch( actionCreators.emit( audioEvent ) );
   })
-)(ReactComponent);
+)(ReactComponent);M
 ```
----
 
 
-## **Documentation**
-###### \*\* _still in progress_ \*\*
-
+## Documentation
 
 **React-Redux-Webaudio** consists of three modules:
 - **webAudioReducer** – *The reducer.*
 - **RRWAEngine** –––––– *The React component.*
 - **actionCreators**\* ––– *The module containing Redux action-creators.*
-######  \* It is not required that you use the actions provided from actionCreators.
+
+\* *It is not required that you use the actions provided from actionCreators.*
 
 
-### The Redux Part:
+### The Redux Part
 
-##### Audio-Event: **(audioCtx: window.AudioContext, currentTime: number) => any**
-In the context of **React-Redux-Webaudio**, an "*audio-event*" is a function that receives a reference to an instance of the window.AudioContext as well as the the *currentTime* value of that instance.
+**Audio Event:** [ (audioCtx: window.AudioContext, currentTime: number) => any ]
+
+In the context of **React-Redux-Webaudio**, an "audio event" is a function that receives a reference to an instance of the window.AudioContext as well as that instance's *currentTime* value.
 
 ```javascript
-// a semi-practical example of what an "audio-event" callback could look like
+// a semi-practical example of what an "audio event" callback could look like
 let audioEvent = ( audioContext, currentTime ) => {
 
   let oscillator = audioContext.createOscillator();
@@ -83,14 +88,15 @@ let audioEvent = ( audioContext, currentTime ) => {
 };
 ```
 
-##### Emit: **action-creator**
-The emit action-creator receives an array of *audio-events* or a single *audio-event* callback function.
-- If passed a single callback, the callback will be pushed on to a queue of *audio-events* where it will be called in FIFO order.
-- If emit is passed an array, the array will be concatenated with the current queue of *audio-events*.
+**Emit:** *action-creator*
 
-##### Queue an *audio-event*: **action**
-###### (without the **emit** action-creator)
-To use your own action instead of the one created by emit, the type constant must be 'QUEUE_EVENT' and it must have an event key, whose value may be a callback function (*audio-event*) or an array (of *audio-events*).
+The emit action-creator receives a single (*audio*) event or an array of events.
+- If passed a single callback, the callback will be pushed on to a queue where it will be called in FIFO order.
+- If passed an array, the array will be concatenated with the current event queue.
+- When the event is called, it will be treated as an audio event.
+
+#### Queue an audio event without the **emit** action-creator:
+To use your own Redux action instead of the one created by emit, the type constant must be 'QUEUE_EVENT' and it must have an event key whose value is an audio event or an array of audio events.
 
 ```javascript
 const QUEUE_EVENT = 'QUEUE_EVENT';
@@ -108,13 +114,32 @@ let action = {
 store.dispatch( action ); // more practically, include the action inside react-redux's connect()
 ```
 
+### The React Part
+**RRWAEngine:** *component*
+
+Include the RRWAEngine component anywhere in your app. The only requirement is that it must be within scope of the Redux store containing the webAudioReducer.
+```javascript
+class App extends React.Component {
+  render() {
+    return (
+      <div>
+        <RRWAEngine />
+        ...
+        /* your other App components */
+        ...
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(
+  <Provider store={ store }>
+    <App />
+  </Provider>,
+  document.getElementById('app')
+);
+```
+
 ---
 
-### The React Part:
-##### RRWAEngine: React component
-Include the RRWAEngine component anywhere in your app. The only requirement is that it must be within scope of the Redux store containing the webAudioReducer. Placing this component in the top level of your app makes sense in most scenarios.
-
----
-
-
-###### *Comments, questions, github issues, and Pull Requests are welcome* :)
+###### *Pull Requests, github issues, and comments/questions are welcome* :)
