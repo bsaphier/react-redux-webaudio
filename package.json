@@ -10,7 +10,7 @@
     "build-prod": "webpack -p",
     "test": "jest .spec.js$",
     "coverage": "npm test -- --coverage",
-    "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
+    "coveralls": "istanbul cover jasmine-node --captureExceptions spec/ && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
   "jest": {
     "verbose": true,
