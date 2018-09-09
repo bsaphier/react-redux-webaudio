@@ -1,28 +1,27 @@
 /*globals jest*//*eslint-disable react/jsx-pascal-case*/
 import React from 'react';
 import { mount, shallow } from 'enzyme';
-
 import { RRWA, mapState, mapDispatch } from '../react/RRWA-component';
-
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
 
 describe('RRWA component', () => {
-
   let spy, wrapper, _audioCtx_, _instance_;
 
   describe('Lifecycle Methods:', () => {
 
-    describe('componentWillMount', () => {
-      it('creates an instance of AudioContext', () => {
-        expect.assertions(2);
-        spy = jest.spyOn(RRWA.prototype, 'componentWillMount');
-        _audioCtx_ = mount(<RRWA />).instance().audioContext;
-        expect(spy).toHaveBeenCalled();
-        expect(_audioCtx_).toBeInstanceOf(global.AudioContext);
-      });
-    });
+/** */
+    // describe('componentWillMount', () => {
+    //   it('creates an instance of AudioContext', () => {
+    //     expect.assertions(2);
+    //     spy = jest.spyOn(RRWA.prototype, 'componentWillMount');
+    //     _audioCtx_ = mount(<RRWA />).instance().audioContext;
+    //     expect(spy).toHaveBeenCalled();
+    //     expect(_audioCtx_).toBeInstanceOf(global.AudioContext);
+    //   });
+    // });
+/** */
 
     describe('componentWillReceiveProps', () => {
       let eventMock = jest.fn();
@@ -43,18 +42,19 @@ describe('RRWA component', () => {
       });
     });
 
-    describe('shouldComponentUpdate', () => {
-      it('returns true if any events are queued in props.events', () => {
-        wrapper = shallow(<RRWA />);
-        let nextProps = { events: [
-          { key: 0, event: function() {} }
-        ]};
-        let shouldUpdate = wrapper.instance().shouldComponentUpdate(nextProps);
-        expect(shouldUpdate).toBe(true);
-      });
-    });
-
-  });
+/** */
+  //   describe('shouldComponentUpdate', () => {
+  //     it('returns true if any events are queued in props.events', () => {
+  //       wrapper = shallow(<RRWA />);
+  //       let nextProps = { events: [
+  //         { key: 0, event: function() {} }
+  //       ]};
+  //       let shouldUpdate = wrapper.instance().shouldComponentUpdate(nextProps);
+  //       expect(shouldUpdate).toBe(true);
+  //     });
+  //   });
+  // });
+/** */
 
   describe('Instance Methods:', () => {
 
@@ -99,13 +99,11 @@ describe('RRWA component', () => {
         expect( audioEvent.mock.calls.length ).toBe(1);
       });
     });
-
   });
 
   describe('Functions for Redux:', () => {
 
     describe('mapStateToProps', () => {
-
       let mockState = { webAudioReducer: { nodes: {}, events: [] } };
 
       it('returns an object containing the values of the webAudioReducer', () => {
@@ -118,7 +116,6 @@ describe('RRWA component', () => {
         expect(mapState(mockState)).not.toContain(mockState.webAudioReducer.nodes);
         expect(mapState(mockState)).not.toContain(mockState.webAudioReducer.events);
       });
-
     });
 
     describe('mapDispatchToProps', () => {
@@ -133,10 +130,6 @@ describe('RRWA component', () => {
         mappedProps.clearQ();
         expect(dispatch).toHaveBeenCalled();
       });
-
     });
-
   });
-
-
 });

@@ -112,23 +112,24 @@ describe('webAudioReducer', () => {
 
   });
 
+/** */
+  // describe('should handle CREATE', () => {
 
-  describe('should handle CREATE', () => {
+  //   it('with nodeType of OSC', () => {
+  //     expect( webAudioReducer(
+  //       INIT_STATE,
+  //       {
+  //         type: types.CREATE,
+  //         nodeType: types.OSC,
+  //         id: 'newOscNode'
+  //       }
+  //     )).toEqual({
+  //       nodes: { newOscNode: { type: types.OSC } },
+  //       events: []
+  //     });
+  //   });
 
-    it('with nodeType of OSC', () => {
-      expect( webAudioReducer(
-        INIT_STATE,
-        {
-          type: types.CREATE,
-          nodeType: types.OSC,
-          id: 'newOscNode'
-        }
-      )).toEqual({
-        nodes: { newOscNode: { type: types.OSC } },
-        events: []
-      });
-    });
-
-  });
+  // });
+/** */
 
 });

@@ -7,18 +7,7 @@ import { clearEvtQueue } from '../action-creators';
 let AudioContext = window.AudioContext || window.webkitAudioContext;
 
 
-/*********************************
- *
- * Export everything, for testing.
- *
- *********************************/
-export const mapState = ({ webAudioReducer }) => ({ ...webAudioReducer });
-
-
-export const mapDispatch = (dispatch) => ({
-  clearQ:  () => dispatch( clearEvtQueue() )
-});
-
+/* Export everything, for testing. */
 
 export class RRWA extends Component {
 
@@ -52,15 +41,20 @@ export class RRWA extends Component {
     event( this.audioContext, this.getCurrTime() );
   }
 
-  getCurrTime() {
+  getCurrTime = () => {
     return this.audioContext.currentTime;
   }
 
   render() {
     return null;
   }
-
 }
 
+
+export const mapState = ({ webAudioReducer }) => ({ ...webAudioReducer });
+
+export const mapDispatch = dispatch => ({
+  clearQ: () => dispatch(clearEvtQueue())
+});
 
 export default connect(mapState, mapDispatch)( RRWA );

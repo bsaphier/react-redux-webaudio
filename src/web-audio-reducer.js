@@ -1,43 +1,16 @@
-import { CREATE, QUEUE_EVENT, CLEAR_EVT_QUEUE } from './constants';
+import { QUEUE_EVENT, CLEAR_EVT_QUEUE } from './constants';
 
-
-const INIT_STATE = {
-  nodes: {},
-  events: []
-};
+/** @constant */
+const INIT_STATE = { events: [] };
 
 
 const webAudioReducer = (state = INIT_STATE, action) => {
-
-    const nextState = {
-      nodes: state.nodes,
-      events: [...state.events]
-    };
-
+  const nextState = { events: [ ...state.events ] };
 
     switch (action.type) {
 
-      case CREATE:
-        nextState.nodes[action.id] =  {
-          /* new AudioNode */
-          type: action.nodeType
-        };
-        break;
-
       case QUEUE_EVENT:
-        if (Array.isArray(action.event)) {
-          action.event.forEach((event, idx) => {
-            nextState.events.push({
-              key: (state.events.length + idx),
-              event: event
-            });
-          });
-        } else {
-          nextState.events.push({
-            key: state.events.length,
-            event: action.event
-          });
-        }
+        queueEvent(state, action, nextState);
         break;
 
       case CLEAR_EVT_QUEUE:
@@ -46,13 +19,26 @@ const webAudioReducer = (state = INIT_STATE, action) => {
 
       default:
         break;
-
     }
 
-
     return nextState;
-
 };
 
-
 export default webAudioReducer;
+
+
+function queueEvent(state, action, nextState) {
+  if (Array.isArray(action.event)) {
+    action.event.forEach((event, idx) => {
+      nextState.events.push({
+        key: (state.events.length + idx),
+        event: event
+      });
+    });
+  } else {
+    nextState.events.push({
+      key: state.events.length,
+      event: action.event
+    });
+  }
+}
