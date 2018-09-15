@@ -13,12 +13,21 @@ export class RRWA extends Component {
 
   constructor(props) {
     super(props);
-    this.getCurrTime = this.getCurrTime.bind(this);
-  }
-
-  componentWillMount() {
     if (AudioContext) {
       this.audioContext = new AudioContext();
+    }
+  }
+
+  // componentWillMount() {
+  //   if (AudioContext) {
+  //     this.audioContext = new AudioContext();
+  //   }
+  // }
+
+  componentDidUpdate() {
+    if (this.props.events.length) {
+      this.props.events.forEach(this.processEvent.bind(this));
+      this.props.clearQ();
     }
   }
 
@@ -26,18 +35,18 @@ export class RRWA extends Component {
     this.audioContext.close();
   }
 
-  componentWillReceiveProps(props) {
-    if (props.events.length) {
-      props.events.forEach(this.processEvent.bind(this));
-      props.clearQ();
-    }
+  // componentWillReceiveProps(props) {
+  //   if (props.events.length) {
+  //     props.events.forEach(this.processEvent.bind(this));
+  //     props.clearQ();
+  //   }
+  // }
+
+  shouldComponentUpdate(nextProps) {
+    return nextProps.events.length > 0;
   }
 
-  shouldComponentUpdate(props) {
-    return props.events.length > 0;
-  }
-
-  processEvent({ event }) {
+  processEvent = ({ event }) => {
     event( this.audioContext, this.getCurrTime() );
   }
 

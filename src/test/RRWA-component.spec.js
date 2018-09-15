@@ -1,4 +1,3 @@
-/*globals jest*//*eslint-disable react/jsx-pascal-case*/
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 import { RRWA, mapState, mapDispatch } from '../react/RRWA-component';
@@ -12,15 +11,15 @@ describe('RRWA component', () => {
   describe('Lifecycle Methods:', () => {
 
 /** */
-    // describe('componentWillMount', () => {
-    //   it('creates an instance of AudioContext', () => {
-    //     expect.assertions(2);
-    //     spy = jest.spyOn(RRWA.prototype, 'componentWillMount');
-    //     _audioCtx_ = mount(<RRWA />).instance().audioContext;
-    //     expect(spy).toHaveBeenCalled();
-    //     expect(_audioCtx_).toBeInstanceOf(global.AudioContext);
-    //   });
-    // });
+    describe('componentWillMount', () => {
+      it('creates an instance of AudioContext', () => {
+        expect.assertions(2);
+        spy = jest.spyOn(RRWA.prototype, 'componentWillMount');
+        _audioCtx_ = mount(<RRWA />).instance().audioContext;
+        expect(spy).toHaveBeenCalled();
+        expect(_audioCtx_).toBeInstanceOf(global.AudioContext);
+      });
+    });
 /** */
 
     describe('componentWillReceiveProps', () => {
@@ -43,18 +42,18 @@ describe('RRWA component', () => {
     });
 
 /** */
-  //   describe('shouldComponentUpdate', () => {
-  //     it('returns true if any events are queued in props.events', () => {
-  //       wrapper = shallow(<RRWA />);
-  //       let nextProps = { events: [
-  //         { key: 0, event: function() {} }
-  //       ]};
-  //       let shouldUpdate = wrapper.instance().shouldComponentUpdate(nextProps);
-  //       expect(shouldUpdate).toBe(true);
-  //     });
-  //   });
-  // });
+    describe('shouldComponentUpdate', () => {
+      it('returns true if any events are queued in props.events', () => {
+        wrapper = shallow(<RRWA />);
+        let nextProps = { events: [
+          { key: 0, event: function() {} }
+        ]};
+        let shouldUpdate = wrapper.instance().shouldComponentUpdate(nextProps);
+        expect(shouldUpdate).toBe(true);
+      });
+    });
 /** */
+  });
 
   describe('Instance Methods:', () => {
 
@@ -77,7 +76,7 @@ describe('RRWA component', () => {
     });
 
     it('shouldn\'t render anything', () => {
-      expect(wrapper.getNode().render()).toBeNull();
+      expect(wrapper.instance().render()).toBeNull();
     });
 
     describe('getCurrTime', () => {
