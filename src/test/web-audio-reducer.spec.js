@@ -1,7 +1,6 @@
 import webAudioReducer from '../web-audio-reducer';
 import * as types from '../constants';
 
-
 const event1 = function() {};
 const event2 = function() {};
 const event3 = function() {};

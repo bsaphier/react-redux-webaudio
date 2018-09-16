@@ -23,6 +23,12 @@ export class RRWA extends Component {
   //     this.audioContext = new AudioContext();
   //   }
   // }
+  componentDidMount() {
+    if (this.props.events.length) {
+      this.props.events.forEach(this.processEvent.bind(this));
+      this.props.clearQ();
+    }
+  }
 
   componentDidUpdate() {
     if (this.props.events.length) {
