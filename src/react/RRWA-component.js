@@ -1,13 +1,11 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
-
 import { clearEvtQueue } from '../action-creators';
-
 
 let AudioContext = window.AudioContext || window.webkitAudioContext;
 
+/** Export everything, for testing. */
 
-/* Export everything, for testing. */
 
 export class RRWA extends Component {
 

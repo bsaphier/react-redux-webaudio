@@ -1,42 +1,103 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
+import TestRenderer from 'react-test-renderer';
 import { RRWA, mapState, mapDispatch } from '../react/RRWA-component';
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 
 describe('RRWA component', () => {
-  describe('*** Lifecycle Methods ***', () => {
-    // let eventMock = jest.fn();
-    // let event1 = { key: 0, event: eventMock };
-    // let event2 = { key: 1, event: eventMock };
-    // let event3 = { key: 2, event: eventMock };
+  let wrapper, instance, clearQMock;
 
-    /** @todo */
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  describe('* Lifecycle Methods *', () => {
+    const event1 = jest.fn();
+    const event2 = jest.fn();
+    const event3 = jest.fn();
+    const eventObject1 = { key: 0, event: event1 };
+    const eventObject2 = { key: 1, event: event2 };
+    const eventObject3 = { key: 2, event: event3 };
+    const mockEvents = [ eventObject1, eventObject2, eventObject3 ];
+
     describe('componentDidMount', () => {
-      it('calls RRWA.processEvent on every item in RRWA.props.events, if RRWA.props.events is not empty', () => {});
-      it('calls RRWA.props.clearQ if RRWA.props.events is not empty', () => {});
+      it('calls RRWA.processEvent on every item in RRWA.props.events if RRWA.props.events is not empty', () => {
+        const spy = jest.spyOn(RRWA.prototype, 'componentDidMount');
+        clearQMock = jest.fn();
+        expect(spy).not.toHaveBeenCalled();
+        wrapper = TestRenderer.create(<RRWA clearQ={clearQMock} events={[]} />);
+        instance = wrapper.getInstance();
+        instance.processEvent = jest.fn();
+        expect(spy).toHaveBeenCalledTimes(1);
+        expect(instance.props.events.length).toBeFalsy();
+        expect(instance.processEvent).not.toHaveBeenCalled();
+        
+        wrapper.update(<RRWA clearQ={clearQMock} events={mockEvents} />);
+        /** @todo - this is failing because the comoponent is not re-mounting */
+        expect(spy).toHaveBeenCalledTimes(2);
+        expect(instance.props.events.length).not.toBeFalsy();
+        expect(instance.processEvent).toHaveBeenCalledTimes(instance.props.events.length);
+      });
+
+      it('calls RRWA.props.clearQ if RRWA.props.events is not empty', () => {
+        clearQMock = jest.fn();
+        wrapper = TestRenderer.create(<RRWA clearQ={clearQMock} events={[]} />);
+        instance = wrapper.getInstance();
+        expect(instance.props.events.length).toBeFalsy();
+        expect(clearQMock).not.toHaveBeenCalled();
+
+        wrapper.unmount();
+        jest.clearAllMocks();
+
+        wrapper = TestRenderer.create(<RRWA clearQ={clearQMock} events={mockEvents} />);
+        expect(clearQMock).toHaveBeenCalledTimes(1);
+      });
     });
 
-    /** @todo */
     describe('shouldComponentUpdate', () => {
+
+      beforeEach(() => {
+        wrapper = TestRenderer.create(<RRWA events={[]} />);
+        instance = wrapper.getInstance();
+      });
+
+      afterEach(() => {
+        wrapper.unmount();
+        jest.clearAllMocks();
+      });
+
       it('will return `true` if RRWA.props.events is not empty', () => {
+        expect(instance.shouldComponentUpdate({ events: [] })).toBe(false);
+        expect(instance.shouldComponentUpdate({ events: mockEvents })).toBe(true);
       });
     });
 
     /** @todo */
     describe('componentDidUpdate', () => {
+
+      afterEach(() => {
+        wrapper.unmount();
+        jest.clearAllMocks();
+      });
+
       it('calls RRWA.processEvent on every item in RRWA.props.events, if RRWA.props.events is not empty', () => {});
       it('calls RRWA.props.clearQ if RRWA.props.events is not empty', () => {});
     });
 
     /** @todo */
     describe('componentWillUnmount', () => {
+
+      afterEach(() => {
+        wrapper.unmount();
+        jest.clearAllMocks();
+      });
+
       it('calls RRWA.audioContext.close', () => {});
     });
   });
 
-  describe('*** Instance Methods ***', () => {
+  describe('* Instance Methods *', () => {
     let _audioCtx_, _instance_;
 
     beforeEach(() => {
@@ -82,7 +143,7 @@ describe('RRWA component', () => {
     });
   });
 
-  describe('*** Redux Connection ***', () => {
+  describe('* Redux Connection *', () => {
 
     describe('mapStateToProps', () => {
       let mockState = { webAudioReducer: { events: [] } };
