@@ -1,79 +1,25 @@
-import React from 'react';
+/**
+ * @typedef {{*}} AudioContext - A Reference to the global AudioContent object.
+ * @typedef {number} Time
+ */
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { actionCreators } from 'react-redux-webaudio';
-
 import { startCtxUI, closeCtxUI, susResAudioCtx } from '../actions';
-
-let closed   = false,
-    oscCount = 0;
+const { emit } = actionCreators;
 
 
-const Comp = (props) => {
-
-  let { msg, susResToggle } = props.uiReducer;
-
-  function create() {
-    props.start();
-    oscCount++;
-  }
-
-  function kill() {
-    props.close();
-    closed = true;
-  }
-
-  return (
-    <div className="main">
-
-      <div className="title">
-        <h1>{ msg }</h1>
-      </div>
-
-      <br />
-
-      <div className={closed ? 'hide' : ''}>
-
-        <div>
-          <p className="bold">LOUD!</p>
-          <p>TURN DOWN THE VOLUME!</p>
-        </div>
-
-        <div className="btn-wrap">
-
-          <div
-            className={`button light ${oscCount > 0 ? 'hide' : ''}`}
-            onClick={create}>
-            {'CREATE'}
-          </div>
-
-          <div
-            className={`button ${msg === 'BUZZING' ? 'off' : 'on'} ${oscCount === 0 ? 'hide' : ''}`}
-            onClick={msg === 'CLOSE' ? null : props.susRes}>
-            {susResToggle}
-          </div>
-
-          <div
-            className={`button sm ${oscCount === 0 ? 'hide' : ''}`}
-            onClick={kill}>
-            {'KILL'}
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-  );
-};
-
-
+/**
+ * This is an audio event that will be handled by `react-redux-webaudio`.
+ * @param {AudioContext} audioCtx - A Reference to the global AudioContent object.
+ * @param {Time} [currTime] - The time when this event is invoked.
+ */
 const start = (audioCtx, currTime) => {
   // create Oscillator and gain node
   let oscillator = audioCtx.createOscillator();
   let gainNode = audioCtx.createGain();
 
   // connect oscillator to gain node to speakers
-
   oscillator.connect(gainNode);
   gainNode.connect(audioCtx.destination);
 
@@ -83,10 +29,9 @@ const start = (audioCtx, currTime) => {
   oscillator.start(currTime);
 
   gainNode.gain.value = 0.1;
-
 };
 
-
+/** Another audio event. */
 const susRes = (audioCtx) => {
   if (audioCtx.state === 'running') {
     audioCtx.suspend();
@@ -95,13 +40,65 @@ const susRes = (audioCtx) => {
   }
 };
 
-
-const close = (audioCtx) => {
-  audioCtx.close();
-};
+/** Another audio event. */
+const close = (audioCtx) => audioCtx.close();
 
 
-const emit = actionCreators.emit;
+/** React Component */
+class RRWAExamplesApp extends PureComponent {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      closed: false,
+      oscCount: 0
+    };
+  }
+
+  handleCreate = () => {
+    this.props.start();
+    this.setState({ oscCount: this.state.oscCount + 1 });
+  }
+
+  handleKill = () => {
+    this.props.kill();
+    this.setState({ closed: true });
+  }
+
+  render() {
+    const { msg, susRes, susResToggle } = this.props.uiReducer;
+
+    return (
+      <div className="main">
+        <div className="title"><h1>{msg}</h1></div>
+        <br />
+        <div className={closed ? 'hide' : ''}>
+          <div>
+            <p className="bold">LOUD!</p>
+            <p>TURN DOWN THE VOLUME!</p>
+          </div>
+          <div className="btn-wrap">
+            <div
+              className={`button light ${oscCount > 0 ? 'hide' : ''}`}
+              onClick={this.create}>
+              {'CREATE'}
+            </div>
+            <div
+              className={`button ${msg === 'BUZZING' ? 'off' : 'on'} ${oscCount === 0 ? 'hide' : ''}`}
+              onClick={msg === 'CLOSE' ? null : susRes}>
+              {susResToggle}
+            </div>
+            <div
+              className={`button sm ${oscCount === 0 ? 'hide' : ''}`}
+              onClick={this.kill}>
+              {'KILL'}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
 
 
 export default connect(
@@ -120,4 +117,4 @@ export default connect(
       dispatch( emit( close ) );
     },
   })
-)(Comp);
+)(RRWAExamplesApp);

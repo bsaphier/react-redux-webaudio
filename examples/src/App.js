@@ -5,12 +5,9 @@ import RRWAExamplesApp from './components';
 import './styles/main.scss';
 
 
-export default () => {
-
-  return (
-    <div>
-      <RRWAEngine />
-      <RRWAExamplesApp />
-    </div>
-  );
-};
+export default () => (
+  <div>
+    <RRWAEngine />
+    <RRWAExamplesApp />
+  </div>
+);

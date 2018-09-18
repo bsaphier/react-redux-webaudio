@@ -11,6 +11,10 @@
     "test": "jest .spec.js$ --coverage",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bsaphier/react-redux-webaudio.git"
+  },
   "jest": {
     "verbose": true,
     "setupTestFrameworkScriptFile": "./src/test/setup.js"
@@ -30,7 +34,8 @@
     "jest": "^23.5.0",
     "react-dom": "^16.5.0",
     "web-audio-engine": "^0.13.4",
-    "webpack": "^4.17.2"
+    "webpack": "^4.17.2",
+    "webpack-cli": "^3.1.0"
   },
   "dependencies": {
     "react": "^16.5.0",
