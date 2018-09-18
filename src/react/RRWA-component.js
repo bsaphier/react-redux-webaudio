@@ -18,16 +18,15 @@ export class RRWA extends Component {
     }
   }
 
-  // componentWillMount() {
-  //   if (AudioContext) {
-  //     this.audioContext = new AudioContext();
-  //   }
-  // }
   componentDidMount() {
     if (this.props.events.length) {
       this.props.events.forEach(this.processEvent.bind(this));
       this.props.clearQ();
     }
+  }
+
+  shouldComponentUpdate(nextProps) {
+    return nextProps.events.length > 0;
   }
 
   componentDidUpdate() {
@@ -39,17 +38,6 @@ export class RRWA extends Component {
 
   componentWillUnmount() {
     this.audioContext.close();
-  }
-
-  // componentWillReceiveProps(props) {
-  //   if (props.events.length) {
-  //     props.events.forEach(this.processEvent.bind(this));
-  //     props.clearQ();
-  //   }
-  // }
-
-  shouldComponentUpdate(nextProps) {
-    return nextProps.events.length > 0;
   }
 
   processEvent = ({ event }) => {
