@@ -6,20 +6,19 @@ const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 
 describe('RRWA component', () => {
+  const event1Mock = jest.fn();
+  const event2Mock = jest.fn();
+  const event3Mock = jest.fn();
+  const eventObject1 = { key: 0, event: event1Mock };
+  const eventObject2 = { key: 1, event: event2Mock };
+  const eventObject3 = { key: 2, event: event3Mock };
+  const mockEvents = [eventObject1, eventObject2, eventObject3];
 
-  beforeEach(() => {
+  afterEach(() => {
     jest.clearAllMocks();
   });
 
   describe('* Lifecycle Methods *', () => {
-    const event1 = jest.fn();
-    const event2 = jest.fn();
-    const event3 = jest.fn();
-    const eventObject1 = { key: 0, event: event1 };
-    const eventObject2 = { key: 1, event: event2 };
-    const eventObject3 = { key: 2, event: event3 };
-    const mockEvents = [ eventObject1, eventObject2, eventObject3 ];
-
     describe('componentDidMount', () => {
 
       afterEach(() => {
@@ -41,7 +40,7 @@ describe('RRWA component', () => {
         wrapper.unmount();
         
         // test with events in the events array
-        wrapper = TestRenderer.create(<RRWA clearQ={() => { }} events={mockEvents} />);
+        wrapper = TestRenderer.create(<RRWA clearQ={() => {}} events={mockEvents} />);
         instance = wrapper.getInstance();
         expect(instance.props.events.length).not.toBeFalsy();
         processEventSpy = jest.spyOn(instance, 'processEvent');
@@ -56,11 +55,9 @@ describe('RRWA component', () => {
         const componentDidMountSpy = jest.spyOn(RRWA.prototype, 'componentDidMount');
         const clearQMock = jest.fn();
         let wrapper = TestRenderer.create(<RRWA clearQ={clearQMock} events={[]} />);
-        let instance = wrapper.getInstance();
 
         // test with empty events array
         expect(componentDidMountSpy).toHaveBeenCalledTimes(1);
-        expect(instance.props.events.length).toBeFalsy();
         expect(clearQMock).not.toHaveBeenCalled();
         wrapper.unmount();
         
@@ -73,92 +70,168 @@ describe('RRWA component', () => {
     });
 
     describe('shouldComponentUpdate', () => {
-      let wrapper, instance;
-
-      beforeEach(() => {
-        // wrapper = TestRenderer.create(<RRWA events={[]} />);
-        // instance = wrapper.getInstance();
-      });
-
-      afterEach(() => {
-        // wrapper.unmount();
-        jest.clearAllMocks();
-      });
-
       it('will return `true` if RRWA.props.events is not empty', () => {
-        // expect(instance.shouldComponentUpdate({ events: [] })).toBe(false);
-        // expect(instance.shouldComponentUpdate({ events: mockEvents })).toBe(true);
+        const wrapper = TestRenderer.create(<RRWA events={[]} />);
+        const instance = wrapper.getInstance();
+        expect(instance.shouldComponentUpdate({ events: [] })).toBe(false);
+        expect(instance.shouldComponentUpdate({ events: mockEvents })).toBe(true);
+        wrapper.unmount();
+        jest.clearAllMocks();
       });
     });
 
-    /** @todo */
     describe('componentDidUpdate', () => {
-      let wrapper;
 
       afterEach(() => {
-        // wrapper.unmount();
         jest.clearAllMocks();
       });
 
-      it('calls RRWA.processEvent on every item in RRWA.props.events, if RRWA.props.events is not empty', () => {});
-      it('calls RRWA.props.clearQ if RRWA.props.events is not empty', () => {});
+      it('does not get called if the incoming RRWA.props.events is empty', () => {
+        const componentDidUpdateSpy = jest.spyOn(RRWA.prototype, 'componentDidUpdate');
+        let wrapper = TestRenderer.create(<RRWA clearQ={() => {}} events={[]} />);
+        let instance = wrapper.getInstance();
+
+        // test with events in the events array
+        wrapper.update(<RRWA clearQ={() => {}} events={[eventObject1]} />);
+        expect(instance.props.events.length).not.toBeFalsy();
+        expect(componentDidUpdateSpy).toHaveBeenCalledTimes(1);
+
+        // test with empty events array
+        wrapper.update(<RRWA clearQ={() => {}} events={[]} />);
+        expect(instance.props.events.length).toBeFalsy();
+        expect(componentDidUpdateSpy).toHaveBeenCalledTimes(1); // was not called again, even though props did update
+      });
+
+      it('calls RRWA.processEvent on every item in RRWA.props.events, if RRWA.props.events is not empty', () => {
+        const componentDidUpdateSpy = jest.spyOn(RRWA.prototype, 'componentDidUpdate');
+
+        // test with empty events array
+        let wrapper = TestRenderer.create(
+          <RRWA clearQ={'this value doesn\'t matter because the events array is empty'} events={[]} />
+        );
+        let instance = wrapper.getInstance();
+        let processEventSpy = jest.spyOn(instance, 'processEvent');
+        wrapper.update(<RRWA clearQ={() => {}} events={[]} />);
+        expect(instance.props.events.length).toBeFalsy();
+        expect(componentDidUpdateSpy).not.toHaveBeenCalled();
+        expect(processEventSpy).not.toHaveBeenCalled();
+
+        // test with events in the events array
+        wrapper.update(<RRWA clearQ={() => {}} events={mockEvents} />);
+        expect(instance.props.events.length).toBeGreaterThan(0);
+        expect(componentDidUpdateSpy).toHaveBeenCalledTimes(1);
+        expect(processEventSpy).toHaveBeenCalledTimes(instance.props.events.length);
+
+        wrapper.unmount();
+      });
+
+      it('calls RRWA.props.clearQ if RRWA.props.events is not empty', () => {
+        const componentDidUpdateSpy = jest.spyOn(RRWA.prototype, 'componentDidUpdate');
+        const clearQMock = jest.fn();
+
+        // test with empty events array
+        const wrapper = TestRenderer.create(<RRWA clearQ={clearQMock} events={[]} />);
+        expect(componentDidUpdateSpy).not.toHaveBeenCalled();
+        expect(clearQMock).not.toHaveBeenCalled();
+        
+        // test with events in the events array
+        wrapper.update(<RRWA clearQ={clearQMock} events={mockEvents} />);
+        expect(componentDidUpdateSpy).toHaveBeenCalledTimes(1);
+        expect(clearQMock).toHaveBeenCalledTimes(1);
+        
+        wrapper.unmount();
+      });
     });
 
-    /** @todo */
     describe('componentWillUnmount', () => {
-      let wrapper;
 
       afterEach(() => {
-        // wrapper.unmount();
         jest.clearAllMocks();
       });
 
-      it('calls RRWA.audioContext.close', () => {});
+      it('gets called when the component unmounts', () => {
+        const componentWillUnmountSpy = jest.spyOn(RRWA.prototype, 'componentWillUnmount');
+        const wrapper = TestRenderer.create(<RRWA clearQ={() => {}} events={[]} />);
+        expect(componentWillUnmountSpy).not.toHaveBeenCalled();
+        wrapper.unmount();
+        expect(componentWillUnmountSpy).toHaveBeenCalledTimes(1);
+      });
+
+      it('calls RRWA.audioContext.close', () => {
+        const wrapper = TestRenderer.create(<RRWA clearQ={() => {}} events={[]} />);
+        const instance = wrapper.getInstance();
+        const audioContextCloseSpy = jest.spyOn(instance.audioContext, 'close');
+        wrapper.unmount();
+        expect(audioContextCloseSpy).toHaveBeenCalledTimes(1);
+      });
     });
   });
 
   describe('* Instance Methods *', () => {
-    let _audioCtx_, _instance_;
+    let wrapper, instance, audioContext;
 
     beforeEach(() => {
-      // wrapper = mount(<RRWA />);
-      // _instance_ = wrapper.instance();
-      // _audioCtx_ = _instance_.audioContext;
+      wrapper = TestRenderer.create(<RRWA clearQ={() => {}} events={[]} />);
+      instance = wrapper.getInstance();
+      audioContext = instance.audioContext;
     });
 
     afterEach(() => {
-      // wrapper.unmount();
+      wrapper.unmount();
+      jest.clearAllMocks();
     });
 
     it('should render without error', () => {
-      // expect( wrapper ).toBeTruthy();
+      expect(wrapper).toBeTruthy();
     });
 
     it('should be an instance of RRWA-component', () => {
-      // expect( _instance_ ).toBeInstanceOf(RRWA);
+      expect(instance).toBeInstanceOf(RRWA);
     });
 
     it('shouldn\'t render anything', () => {
-      // expect(wrapper.instance().render()).toBeNull();
+      expect(instance.render()).toBeNull();
+    });
+
+    it('constructor assigns RRWA.audioContext to a new instance of window.AudioContext || window.webkitAudioContext', () => {
+      expect(AudioContext).toBeTruthy();
+      wrapper = TestRenderer.create(<RRWA clearQ={() => { }} events={[]} />);
+      instance = wrapper.getInstance();
+      expect(instance.audioContext).toBeInstanceOf(AudioContext);
     });
 
     describe('RRWA.getCurrTime', () => {
       it('should return the currentTime of the audioContext instance', () => {
-        // expect( _audioCtx_.currentTime ).toEqual( 0 );
-        // expect( _instance_.getCurrTime() ).toEqual( 0 );
-        // _audioCtx_.processTo(500);
-        // return delay(510).then(() => {
-        //   expect( _audioCtx_.currentTime ).toBeLessThan(500.01);
-        //   expect( _audioCtx_.currentTime ).toBeGreaterThanOrEqual(500);
-        // });
+        expect(audioContext.currentTime).toEqual(0);
+        expect(instance.getCurrTime()).toEqual(0);
+        audioContext.processTo(500);
+        expect(audioContext.currentTime).toBeCloseTo(500);
+        expect(instance.getCurrTime()).toBeCloseTo(500);
       });
     });
 
     describe('RRWA.processEvent', () => {
       it('should call the function passed as args[0].event', () => {
-        // let audioEvent = jest.fn();
-        // _instance_.processEvent({ event: audioEvent });
-        // expect( audioEvent.mock.calls.length ).toBe(1);
+        const eventMock = eventObject1.event;
+        instance.processEvent(eventObject1);
+        expect(eventMock.mock.calls.length).toBe(1);
+      });
+
+      it('should pass RRWA.audioContext as the first argument to the event function that this method calls', () => {
+        const eventMock = eventObject1.event;
+        eventMock.mockClear();
+        instance.processEvent(eventObject1);
+        expect(eventMock.mock.calls[0][0]).toBe(instance.audioContext);
+      });
+
+      it('should pass the return value of RRWA.getCurrTime as the second argument to the event function that this method calls', () => {
+        const returnValue = 'This is a mocked return value';
+        instance.getCurrTime = jest.fn().mockImplementation(() => returnValue);
+        const eventMock = eventObject1.event;
+        eventMock.mockClear();
+        instance.processEvent(eventObject1);
+        expect(instance.getCurrTime).toHaveBeenCalledTimes(1);
+        expect(eventMock.mock.calls[0][1]).toBe(returnValue);
       });
     });
   });

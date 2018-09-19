@@ -16,7 +16,7 @@
     "url": "git+https://github.com/bsaphier/react-redux-webaudio.git"
   },
   "jest": {
-    "verbose": true,
+    "verbose": false,
     "setupTestFrameworkScriptFile": "./src/test/setup.js"
   },
   "devDependencies": {
