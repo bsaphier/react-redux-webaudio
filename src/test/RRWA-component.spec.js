@@ -2,7 +2,16 @@ import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import { RRWA, mapState, mapDispatch } from '../react/RRWA-component';
 
-const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+class MockAudioContext {
+  constructor() {
+    this.closed = false;
+    this.currentTime = 0;
+  }
+
+  close() {
+    this.closed = true;
+  }
+}
 
 
 describe('RRWA component', () => {
@@ -18,7 +27,7 @@ describe('RRWA component', () => {
     jest.clearAllMocks();
   });
 
-  describe('* Lifecycle Methods *', () => {
+  describe('* Lifecycle *', () => {
     describe('componentDidMount', () => {
 
       afterEach(() => {
@@ -167,7 +176,8 @@ describe('RRWA component', () => {
     });
   });
 
-  describe('* Instance Methods *', () => {
+  describe('* Instance *', () => {
+    const _AudioContext = window.AudioContext; // store this value so that it can be reset
     let wrapper, instance, audioContext;
 
     beforeEach(() => {
@@ -179,6 +189,8 @@ describe('RRWA component', () => {
     afterEach(() => {
       wrapper.unmount();
       jest.clearAllMocks();
+      window.AudioContext = _AudioContext;
+      delete window.webkitAudioContext;
     });
 
     it('should render without error', () => {
@@ -194,10 +206,23 @@ describe('RRWA component', () => {
     });
 
     it('constructor assigns RRWA.audioContext to a new instance of window.AudioContext || window.webkitAudioContext', () => {
-      expect(AudioContext).toBeTruthy();
-      wrapper = TestRenderer.create(<RRWA clearQ={() => { }} events={[]} />);
+      window.AudioContext = MockAudioContext;
+      wrapper = TestRenderer.create(<RRWA clearQ={() => {}} events={[]} />);
       instance = wrapper.getInstance();
-      expect(instance.audioContext).toBeInstanceOf(AudioContext);
+      expect(instance.audioContext).toBeInstanceOf(MockAudioContext);
+
+      window.AudioContext = undefined;
+      window.webkitAudioContext = MockAudioContext;
+      wrapper = TestRenderer.create(<RRWA clearQ={() => {}} events={[]} />);
+      instance = wrapper.getInstance();
+      expect(instance.audioContext).toBeInstanceOf(MockAudioContext);
+    });
+
+    it('should throw an error if (window.AudioContext || window.webkitAudioContext) is false', () => {
+      window.AudioContext = undefined;
+      window.webkitAudioContext = undefined;
+      expect(window.AudioContext || window.webkitAudioContext).toBeFalsy();
+      expect(() => TestRenderer.create(<RRWA clearQ={() => {}} events={[]} />)).toThrow();
     });
 
     describe('RRWA.getCurrTime', () => {

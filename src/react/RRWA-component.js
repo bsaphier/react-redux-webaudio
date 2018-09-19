@@ -1,18 +1,18 @@
+/** Export everything, for testing. */
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import { clearEvtQueue } from '../action-creators';
-
-let AudioContext = window.AudioContext || window.webkitAudioContext;
-
-/** Export everything, for testing. */
 
 
 export class RRWA extends Component {
 
   constructor(props) {
     super(props);
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
     if (AudioContext) {
       this.audioContext = new AudioContext();
+    } else {
+      throw new Error('This environment does not support the web audio API.');
     }
   }
 
