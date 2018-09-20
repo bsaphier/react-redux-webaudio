@@ -73,7 +73,7 @@ const Container = connect(
 **React-Redux-Webaudio** consists of three modules:
 - **webAudioReducer** – *The Redux reducer.*
 - **RRWAEngine** –––––– *The React component.*
-- **actionCreators** ––– *The Redux action-creators (it's not required that these action creators are used).*
+- **actionCreators** –––– *The Redux action-creators (it's not required that these action creators are used).*
 
 
 ### Defining an Audio Event
