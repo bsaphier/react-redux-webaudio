@@ -1,7 +1,7 @@
 /** Export everything, for testing. */
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import { clearEvtQueue } from '../action-creators';
+import { clearEvtQueue } from './action-creators';
 
 
 export class RRWA extends Component {
@@ -18,7 +18,7 @@ export class RRWA extends Component {
 
   componentDidMount() {
     if (this.props.events.length) {
-      this.props.events.forEach(this.processEvent.bind(this));
+      this.props.events.forEach(this.processEvent);
       this.props.clearQ();
     }
   }
@@ -29,7 +29,7 @@ export class RRWA extends Component {
 
   componentDidUpdate() {
     if (this.props.events.length) {
-      this.props.events.forEach(this.processEvent.bind(this));
+      this.props.events.forEach(this.processEvent);
       this.props.clearQ();
     }
   }
