@@ -9,7 +9,7 @@
     "build": "webpack",
     "build-prod": "webpack -p",
     "test": "jest .spec.js$ --coverage",
-    "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
+    "coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
