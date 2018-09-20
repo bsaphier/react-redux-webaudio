@@ -1,8 +1,6 @@
 src/
 examples/
 coverage/
-v0.0.1/
-IDEAS.txt
 TODO.txt
 .babelrc
 .eslintrc
