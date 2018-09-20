@@ -1,7 +1,7 @@
 # REACT-REDUX-WEBAUDIO [![Build Status](https://travis-ci.org/bsaphier/react-redux-webaudio.svg?branch=master)](https://travis-ci.org/bsaphier/react-redux-webaudio) [![Coverage Status](https://coveralls.io/repos/github/bsaphier/react-redux-webaudio/badge.svg?branch=master)](https://coveralls.io/github/bsaphier/react-redux-webaudio) [![npm](https://img.shields.io/npm/v/react-redux-webaudio.svg)](https://www.npmjs.com/package/react-redux-webaudio)
 ###### An event manager for the [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API), integrated with [`react-redux`](https://redux.js.org/basics/usagewithreact).
 
-> #### ***Attn***: *Do not use this library for processing audio events that require low latency.*
+> #### <span style="color:red">***Attn***</span>: *Do not use this library for processing audio events that require low latency.*
 > Audio events are handled by React's internal reconciliation/diffing algos and therefore the latency, in terms of audio, is **huge**.
 
 ## Demo & Examples
