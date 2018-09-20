@@ -1,30 +1,34 @@
 const path = require('path');
 
 module.exports = {
+  mode: 'development',
   entry: './src/index.js',
   output: {
     path: __dirname,
     filename: './public/bundle.js'
   },
   context: __dirname,
-  devtool: 'source-map',
+  devtool: 'inline-source-map',
   devServer: {
     contentBase: path.join(__dirname, 'public'),
     compress: true,
-    port: 1337
+    port: 8000
   },
   module: {
-    loaders: [{
+    rules: [{
       test: /jsx?$/,
       exclude: /(node_modules)/,
-      loader: 'babel-loader',
-      query: {
-        presets: ['react', 'es2015']
+      use: {
+        loader: 'babel-loader',
+        options: {
+          presets: ['@babel/preset-react', '@babel/preset-env'],
+          plugins: [require('@babel/plugin-proposal-object-rest-spread')]
+        }
       }
     }, {
       test: /\.scss$/,
       exclude: /(node_modules)/,
-      loaders: ['style-loader', 'css-loader', 'sass-loader']
+      use: ['style-loader', 'css-loader', 'sass-loader']
     }]
   }
 };

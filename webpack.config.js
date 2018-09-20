@@ -1,6 +1,7 @@
 const path = require('path');
 
 module.exports = {
+  mode: 'production',
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -10,18 +11,19 @@ module.exports = {
   },
   context: __dirname,
   module: {
-    loaders: [{
-      test: /jsx?$/,
-      exclude: /(node_modules)/,
-      loader: 'babel-loader',
-      query: {
-        presets: ['react', 'es2015']
+    rules: [
+      {
+        test: /jsx?$/,
+        exclude: /(node_modules)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-react', '@babel/preset-env'],
+            plugins: [require('@babel/plugin-proposal-object-rest-spread')]
+          }
+        }
       }
-    }]
+    ]
   },
-  externals: [
-    'react',
-    'redux',
-    'react-redux'
-  ]
+  externals: ['react', 'redux', 'react-redux']
 };

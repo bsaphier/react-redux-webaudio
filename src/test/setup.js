@@ -1,6 +1,2 @@
-const { RenderingAudioContext } = require('web-audio-engine');
-
-export default (function() {
-  window.AudioContext = RenderingAudioContext;
-  global.AudioContext = RenderingAudioContext;
-})();
+import { RenderingAudioContext } from 'web-audio-engine';
+window.AudioContext = RenderingAudioContext;

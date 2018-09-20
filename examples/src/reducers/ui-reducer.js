@@ -5,10 +5,10 @@ const initialState = {
 
 
 export default (state = initialState, action) => {
-
   const nextState = {...state};
 
   switch (action.type) {
+    
     case 'START':
       nextState.msg = 'BUZZING';
       break;
@@ -31,5 +31,4 @@ export default (state = initialState, action) => {
   }
 
   return nextState;
-
 };

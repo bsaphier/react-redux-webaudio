@@ -4,4 +4,5 @@ coverage/
 TODO.txt
 .babelrc
 .eslintrc
+.travis.yml
 webpack.config.js
