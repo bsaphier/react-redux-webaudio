@@ -1,7 +1,8 @@
-/** Export everything, for testing. */
+/* Export everything, for testing. */
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import { clearEvtQueue } from './action-creators';
+// import audioEventMemoizer from './memoize';
 
 
 export class RRWA extends Component {
@@ -38,8 +39,13 @@ export class RRWA extends Component {
     this.audioContext.close();
   }
 
+  /** @todo - replace RRWA.processEvent with this */
+  // __processEvent = audioEventMemoizer((eventObj) => {
+  //   eventObj.event(this.audioContext, this.getCurrTime);
+  // })
+
   processEvent = ({ event }) => {
-    event( this.audioContext, this.getCurrTime() );
+    event(this.audioContext, this.getCurrTime);
   }
 
   getCurrTime = () => {
@@ -52,10 +58,12 @@ export class RRWA extends Component {
 }
 
 
-export const mapState = ({ webAudioReducer }) => ({ ...webAudioReducer });
+export const mapState = ({ webAudioReducer }) => ({
+  ...webAudioReducer
+});
 
 export const mapDispatch = dispatch => ({
   clearQ: () => dispatch(clearEvtQueue())
 });
 
-export default connect(mapState, mapDispatch)( RRWA );
+export default connect(mapState, mapDispatch)(RRWA);

@@ -249,14 +249,11 @@ describe('RRWA component', () => {
         expect(eventMock.mock.calls[0][0]).toBe(instance.audioContext);
       });
 
-      it('should pass the return value of RRWA.getCurrTime as the second argument to the event function that this method calls', () => {
-        const returnValue = 'This is a mocked return value';
-        instance.getCurrTime = jest.fn().mockImplementation(() => returnValue);
+      it('should pass RRWA.getCurrTime as the second argument to the event function that this method calls', () => {
         const eventMock = eventObject1.event;
         eventMock.mockClear();
         instance.processEvent(eventObject1);
-        expect(instance.getCurrTime).toHaveBeenCalledTimes(1);
-        expect(eventMock.mock.calls[0][1]).toBe(returnValue);
+        expect(eventMock.mock.calls[0][1]).toBe(instance.getCurrTime);
       });
     });
   });

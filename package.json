@@ -6,8 +6,8 @@
   "author": "bsaphier",
   "license": "ISC",
   "scripts": {
-    "build": "webpack",
-    "build-prod": "webpack -p",
+    "build": "webpack -p",
+    "build-dev": "webpack",
     "test": "jest .spec.js$ --coverage",
     "coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls"
   },
