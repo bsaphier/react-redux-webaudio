@@ -2,39 +2,58 @@
   "name": "react-redux-webaudio",
   "version": "1.1.0",
   "description": "The Web Audio API, thinly wrapped for easy integration with React-Redux",
-  "main": "./index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
   "author": "bsaphier",
   "license": "ISC",
+  "homepage": "https://bsaphier.github.io/react-redux-webaudio/",
+  "files": [
+    "dist",
+    "lib"
+  ],
   "scripts": {
-    "build": "webpack -p",
-    "build-dev": "webpack",
-    "test": "jest .spec.js$ --coverage",
-    "coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls"
+    "test": "jest .spec.js$",
+    "coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls",
+    "clean": "rimraf dist",
+    "build": "run-s clean && run-p build:es build:cjs build:lib:es",
+    "build:es": "NODE_ENV=es rollup -c",
+    "build:cjs": "NODE_ENV=cjs rollup -c",
+    "build:lib:es": "BABEL_ENV=es babel src -d lib"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bsaphier/react-redux-webaudio.git"
   },
+  "bugs": {
+    "url": "https://github.com/bsaphier/react-redux-webaudio/issues"
+  },
   "jest": {
     "verbose": true,
+    "collectCoverage": true,
     "setupTestFrameworkScriptFile": "./src/test/setup.js"
   },
   "devDependencies": {
+    "@babel/cli": "^7.1.0",
     "@babel/core": "^7.0.0",
+    "@babel/plugin-external-helpers": "^7.0.0",
     "@babel/plugin-proposal-class-properties": "^7.0.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
     "babel-core": "^7.0.0-0",
     "babel-jest": "^23.4.2",
-    "babel-loader": "^8.0.2",
     "coveralls": "^3.0.2",
     "jest": "^23.5.0",
+    "npm-run-all": "^4.1.3",
     "react-dom": "^16.5.2",
     "react-test-renderer": "^16.5.2",
-    "web-audio-engine": "^0.13.4",
-    "webpack": "^4.17.2",
-    "webpack-cli": "^3.1.0"
+    "rollup": "^0.66.2",
+    "rollup-plugin-babel": "^4.0.3",
+    "rollup-plugin-commonjs": "^9.1.8",
+    "rollup-plugin-filesize": "^4.0.1",
+    "rollup-plugin-node-resolve": "^3.4.0",
+    "rollup-plugin-terser": "^3.0.0",
+    "web-audio-engine": "^0.13.4"
   },
   "dependencies": {
     "react": "^16.5.2",

@@ -1,0 +1,20 @@
+{
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "node": true,
+    "jest": true,
+    "es6": true
+  },
+  "rules": {
+    "no-unused-vars": 1,
+    "semi": [ 1, "always" ],
+    "guard-for-in": "off",
+    "require-await": "error",
+    "react/prop-types": "off",
+    "react/display-name": "off",
+    "class-methods-use-this": "off",
+    "id-length": [ "warn", { "exceptions": [ "a", "b", "c", "x", "y", "i" ] } ]
+  }
+}
