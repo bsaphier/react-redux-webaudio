@@ -1,5 +1,5 @@
-import * as actions from '../action-creators';
-import * as types from '../constants';
+import * as actions from '../src/action-creators';
+import * as types from '../src/constants';
 
 
 describe('actions: ', () => {

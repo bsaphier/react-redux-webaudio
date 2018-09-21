@@ -1,5 +1,5 @@
-import webAudioReducer from '../web-audio-reducer';
-import * as types from '../constants';
+import webAudioReducer from '../src/web-audio-reducer';
+import * as types from '../src/constants';
 
 const event1 = function() {};
 const event2 = function() {};

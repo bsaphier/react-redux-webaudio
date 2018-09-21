@@ -1,7 +1,3 @@
-/**
- * @typedef {{*}} AudioContext - A Reference to the global AudioContent object.
- * @typedef {number} Time
- */
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { actionCreators } from 'react-redux-webaudio';
@@ -11,10 +7,10 @@ const { emit } = actionCreators;
 
 /**
  * This is an audio event that will be handled by `react-redux-webaudio`.
- * @param {AudioContext} audioCtx - A Reference to the global AudioContent object.
- * @param {Time} [currTime] - The time when this event is invoked.
+ * @param {AudioContext} audioCtx - A Reference to an instance of the global AudioContext.
+ * @param {() => number} [getCurrentTime] - A function that returns the current value of AudioContext.currentTime.
  */
-const start = (audioCtx, currTime) => {
+const start = (audioCtx, getCurrentTime) => {
   // create Oscillator and gain node
   let oscillator = audioCtx.createOscillator();
   let gainNode = audioCtx.createGain();
@@ -26,7 +22,7 @@ const start = (audioCtx, currTime) => {
   // Make noise, sweet noise
   oscillator.type = 'square';
   oscillator.frequency.value = 100; // value in hertz
-  oscillator.start(currTime);
+  oscillator.start(getCurrentTime());
 
   gainNode.gain.value = 0.1;
 };
@@ -66,6 +62,7 @@ class RRWAExamplesApp extends PureComponent {
   }
 
   render() {
+    const { oscCount } = this.state;
     const { msg, susRes, susResToggle } = this.props.uiReducer;
 
     return (

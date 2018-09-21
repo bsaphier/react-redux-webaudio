@@ -1,7 +1,24 @@
 {
-  "presets": [ "@babel/preset-env", "@babel/preset-react" ],
+  "presets": [
+    ["@babel/preset-env", {
+      "modules": false,
+      "targets": {
+        "browsers": ["last 2 Chrome versions", "safari >=11"]
+      }
+    }],
+    "@babel/preset-react"
+  ],
   "plugins": [
     "@babel/proposal-class-properties",
     "@babel/proposal-object-rest-spread"
-  ]
+  ],
+  "env": {
+    "test": {
+      "presets": ["@babel/preset-env", "@babel/preset-react"],
+      "plugins": [
+        "@babel/proposal-class-properties",
+        "@babel/proposal-object-rest-spread"
+      ]
+    }
+  }
 }

@@ -1,9 +1,16 @@
-dist/
+# dependencies
+node_modules
+
+# misc
+.DS_Store
+.env
+.npmignore
+npm-debug.log
+yarn-dubug.log
 todo.txt
 TODO.txt
 coverage/
 
-node_modules
-
-.npmignore
-.eslintrc
+# IDE dependencies
+.idea
+.idea/*
