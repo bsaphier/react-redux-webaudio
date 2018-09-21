@@ -2,7 +2,6 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import { clearEvtQueue } from './action-creators';
-// import audioEventMemoizer from './memoize';
 
 
 export class RRWA extends Component {
@@ -38,11 +37,6 @@ export class RRWA extends Component {
   componentWillUnmount() {
     this.audioContext.close();
   }
-
-  /** @todo - replace RRWA.processEvent with this */
-  // __processEvent = audioEventMemoizer((eventObj) => {
-  //   eventObj.event(this.audioContext, this.getCurrTime);
-  // })
 
   processEvent = ({ event }) => {
     event(this.audioContext, this.getCurrTime);
