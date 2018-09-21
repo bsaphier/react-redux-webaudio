@@ -30,7 +30,7 @@
   "jest": {
     "verbose": true,
     "collectCoverage": true,
-    "setupTestFrameworkScriptFile": "./src/test/setup.js"
+    "setupTestFrameworkScriptFile": "./test/setup.js"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.0",
@@ -68,6 +68,7 @@
     "webaudio",
     "web-audio",
     "webaudioapi",
+    "react-redux",
     "web-audio-api"
   ]
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
-import { RRWA, mapState, mapDispatch } from '../RRWA-component';
+import { RRWA, mapState, mapDispatch } from '../src/RRWA-component';
 
 class MockAudioContext {
   constructor() {
